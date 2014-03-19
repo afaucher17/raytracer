@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 10:12:13 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/14 12:37:00 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 13:43:00 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 t_color				*ft_colornew(double r, double g, double b)
 {

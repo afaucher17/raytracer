@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 18:38:34 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/15 14:11:05 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 13:34:58 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 t_vect		*ft_vectornew(double x, double y, double z)
 {
@@ -30,9 +30,12 @@ double		ft_normalize(t_vect *vect)
 	double	norme;
 
 	norme = sqrt(pow(vect->x, 2) + pow(vect->y, 2) + pow(vect->z, 2));
-	vect->x /= norme;
-	vect->y /= norme;
-	vect->z /= norme;
+	if (norme)
+	{
+		vect->x /= norme;
+		vect->y /= norme;
+		vect->z /= norme;
+	}
 	return (norme);
 }
 

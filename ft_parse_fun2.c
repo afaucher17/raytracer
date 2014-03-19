@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 18:20:45 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 18:20:51 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 14:06:47 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include		"RTv1.h"
+#include		"raytracer.h"
 
 t_point			*ft_get_point(t_list **list)
 {
@@ -38,6 +38,7 @@ t_vect			*ft_get_vect(t_list **list)
 	vect = ft_vectornew(ft_atoi((*list)->content),
 						ft_atoi((*list)->next->content),
 						ft_atoi((*list)->next->next->content));
+
 	while (i < 3)
 	{
 		*list = (*list)->next;

@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:18:31 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 14:25:36 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/18 16:36:48 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 t_sphere		*ft_spherenew(double x, double y, double z, double radius)
 {

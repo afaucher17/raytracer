@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 18:36:58 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 14:25:27 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/18 16:23:57 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 t_plane			*ft_planenew(t_vect *vect, t_point *point)
 {

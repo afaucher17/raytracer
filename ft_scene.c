@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 static t_camera		*ft_cameranew(t_point *origin, t_vect *dir,
 							t_vect *up)

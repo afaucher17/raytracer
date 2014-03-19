@@ -6,16 +6,16 @@
 #    By: afaucher <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/20 14:23:30 by afaucher          #+#    #+#              #
-#    Updated: 2014/02/16 13:48:02 by afaucher         ###   ########.fr        #
+#    Updated: 2014/03/19 13:38:17 by afaucher         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = /usr/bin/cc
 
-SOURCES = RTv1.c ft_obj.c ft_point.c ft_raytracer.c ft_scene.c ft_sphere.c \
+SOURCES = raytracer.c ft_obj.c ft_point.c ft_raytracer.c ft_scene.c ft_sphere.c \
 		ft_vector.c image.c main.c ft_plane.c ft_light.c ft_color.c \
 		ft_cylinder.c ft_getlight.c ft_cone.c ft_parser.c ft_parse_fun.c \
-		ft_parse_fun2.c \
+		ft_parse_fun2.c ft_matrix.c \
 
 OBJS = $(SOURCES:.c=.o)
 
@@ -29,7 +29,7 @@ LIBMLX = /usr/X11/lib
 
 LIB = libft/libft.a
 
-NAME = RTv1
+NAME = raytracer
 
 all: $(NAME)
 

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RTv1.c                                             :+:      :+:    :+:   */
+/*   raytracer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/11 12:56:34 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 13:44:56 by afaucher         ###   ########.fr       */
+/*   Created: 2014/03/19 13:43:30 by afaucher          #+#    #+#             */
+/*   Updated: 2014/03/19 13:43:38 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 static int		expose_hook(t_env *env)
 {
@@ -28,7 +28,7 @@ static int		key_hook(int keycode, t_env *env)
 	return (0);
 }
 
-void			rtv1(int fd)
+void			raytracer(int fd)
 {
 	void		*mlx_ptr;
 	void		*win_ptr;

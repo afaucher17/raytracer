@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 12:21:23 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 14:22:30 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/18 20:25:46 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 /*
 ** This function creates a new point

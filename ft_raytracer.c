@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 18:50:05 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 14:25:05 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 t_point			*ft_getdistpoint(t_point *origin, t_vect *dir, double dist)
 {

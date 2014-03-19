@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 11:43:53 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 17:29:42 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 14:39:54 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 t_cone			*ft_conenew(t_point *center, t_vect *axis,
 							double radius, double angle)
@@ -22,9 +22,9 @@ t_cone			*ft_conenew(t_point *center, t_vect *axis,
 	new->center = center;
 	new->axis = axis;
 	new->radius = radius;
-	ft_putnbr(angle);
 	new->angle = 1 / (tan(angle) * tan(angle));
-	ft_putnbr(angle);
+	ft_get_rotate_matrix(axis->x, axis->y, axis->z, new->rot);
+	ft_get_translate_matrix(center, new->rot);
 	return (new);
 }
 
@@ -48,6 +48,8 @@ double			ft_intercone(void *ptr_cone, t_point *origin, t_vect *dir)
 	t_cone		*cone;
 
 	cone = (t_cone*)ptr_cone;
+	dir = ft_rotate_vect(dir, cone->rot);
+	origin = ft_rotate_point(origin, cone->center, cone->rot);
 	a = pow(dir->x, 2) * cone->angle + pow(dir->z, 2) * cone->angle
 		- pow(dir->y, 2);
 	b = 2 * ((dir->x * (origin->x - cone->center->x) * cone->angle)
@@ -70,6 +72,7 @@ t_vect			*ft_normecone(void *ptr_cone, t_point *origin, t_vect *dir)
 
 	(void)dir;
 	cone = (t_cone*)ptr_cone;
+	origin = ft_rotate_point(origin, cone->center, cone->rot);
 	if ((vect = ft_vectornew(origin->x - cone->center->x,
 					0, origin->z - cone->center->z)) == NULL)
 		return (NULL);

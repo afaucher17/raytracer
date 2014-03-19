@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 12:06:11 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 13:49:54 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 static t_vect	*ft_get_lvect(t_light *llist, t_point *point)
 {
@@ -70,9 +70,12 @@ int				ft_getlight(t_obj *minobj, t_obj *olist,
 		if ((vect = ft_get_shadow(minobj, olist, llist, point)) != NULL)
 		{
 			color = ft_lightcolor(minobj, llist, vect, point);
-			final_color->r += (((u_char*)&color)[0]);
-			final_color->g += (((u_char*)&color)[1]);
-			final_color->b += (((u_char*)&color)[2]);
+			final_color->r = (final_color->r < (((u_char*)&color)[0]))
+							? (((u_char*)&color)[0]) : final_color->r;
+			final_color->g = (final_color->g < (((u_char*)&color)[1]))
+							? (((u_char*)&color)[1]) : final_color->g;
+			final_color->b = (final_color->b < (((u_char*)&color)[2]))
+							? (((u_char*)&color)[2]) : final_color->b;
 		}
 		llist = llist->next;
 	}

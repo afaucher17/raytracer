@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 18:20:29 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 18:20:33 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 14:08:58 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include		"RTv1.h"
+#include		"raytracer.h"
 
 void			ft_fillplane(t_list **list, t_obj **olist)
 {
@@ -52,6 +52,7 @@ void			ft_fillcone(t_list **list, t_obj **olist)
 	cone = ft_conenew(ft_get_point(list),
 						ft_get_vect(list), ft_atoi((*list)->content),
 						(ft_atoi((*list)->next->content) / 180.0) * M_PI);
+	*list = (*list)->next;
 	*list = (*list)->next;
 	ft_objpushfront(olist, cone, O_CONE, ft_get_color(list));
 }

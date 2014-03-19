@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RTv1.h                                             :+:      :+:    :+:   */
+/*   raytracer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/11 12:49:16 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 17:05:31 by afaucher         ###   ########.fr       */
+/*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
+/*   Updated: 2014/03/19 14:25:35 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTV1_H
-# define RTV1_H
+#ifndef RAYTRACER_H
+# define RAYTRACER_H
 
 # include "libft/libft.h"
 # include "struct.h"
@@ -44,9 +44,9 @@
 
 extern t_objfun	g_objtab[OBJ_SIZE];
 /*
-** RTv1.c
+** raytracer.c
 */
-void			rtv1(int fd);
+void			raytracer(int fd);
 
 /*
 ** ft_scene.c
@@ -166,4 +166,12 @@ t_point			*ft_get_point(t_list **list);
 t_vect			*ft_get_vect(t_list **list);
 t_color			*ft_get_color(t_list **list);
 
+/*
+** ft_matrix.c
+*/
+void			ft_get_rotate_matrix(double cosx, double cosy,
+										double cosz, double rot[4][4]);
+void			ft_get_translate_matrix(t_point *center, double rot[4][4]);
+t_point			*ft_rotate_point(t_point *origin, t_point *center, double rot[4][4]);
+t_vect			*ft_rotate_vect(t_vect *dir, double rot[4][4]);
 #endif /* !RTV1_H */

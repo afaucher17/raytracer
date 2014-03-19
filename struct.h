@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 19:12:49 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 13:18:01 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 14:25:18 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct		s_cylinder
 	t_point			*center;
 	t_vect			*axis;
 	double			radius;
+	double			rot[4][4];
 }					t_cylinder;
 
 typedef struct		s_cone
@@ -74,6 +75,7 @@ typedef struct		s_cone
 	t_vect			*axis;
 	double			radius;
 	double			angle;
+	double			rot[4][4];
 }					t_cone;
 
 typedef struct		s_obj

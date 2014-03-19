@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "raytracer.h"
 
 t_light		*ft_lightnew(t_point *point, enum e_light light, t_color *color)
 {

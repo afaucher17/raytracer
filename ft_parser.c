@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include		"RTv1.h"
+#include		"raytracer.h"
 
 static void		ft_fill(t_list *list, t_light **llist)
 {
