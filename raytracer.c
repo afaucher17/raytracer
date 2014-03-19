@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:43:30 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 13:43:38 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 14:51:41 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int		expose_hook(t_env *env)
 {
-	ft_raytracer(env->img, env->scene);
 	mlx_put_image_to_window(env->img->mlx_ptr, env->img->win_ptr
 							, env->img->img_ptr, 0, 0);
 	return (1);
