@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 19:12:49 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 14:25:18 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 15:40:49 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,12 @@ typedef struct		s_objfun
 	void			(*f_clear)(void **);
 	void			(*f_fill)(t_list **llist, t_obj **olist);
 }					t_objfun;
+
+typedef struct		s_line
+{
+	t_vect			*dir;
+	t_point			*origin;
+}					t_line;
 
 typedef struct		s_camera
 {

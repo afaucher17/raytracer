@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 21:31:28 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/16 14:25:09 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 19:56:02 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void		ft_lightpushfront(t_light **list, t_point *point
 }
 
 int			ft_lightcolor(t_obj	*obj, t_light *light,
-							t_vect *vect, t_point *point)
+							t_line *line, t_vect *dir)
 {
 	double	cosa;
+	double	dot;
 	t_vect	*normal;
 	int		i;
 
@@ -58,11 +59,12 @@ int			ft_lightcolor(t_obj	*obj, t_light *light,
 	while (i < OBJ_SIZE)
 	{
 		if (g_objtab[i].type == obj->type)
-			normal = g_objtab[i].f_getnorm(obj->obj, point, vect);
+			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
 		i++;
 	}
-	cosa = ft_getangle(vect, normal);
+	cosa = ft_getangle(line->dir, normal);
+	dot = ft_get_dot(line->dir, normal, dir);
 	if (cosa <= 0)
 		return (0x000000);
-	return (ft_getcolor(obj->color, light->color, cosa));
+	return (ft_getcolor(obj->color, light->color, cosa, dot));
 }

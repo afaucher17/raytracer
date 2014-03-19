@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 13:49:54 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 19:49:35 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,24 @@ static t_vect	*ft_get_shadow(t_obj *minobj, t_obj *olist,
 	return (vect);
 }
 
-int				ft_getlight(t_obj *minobj, t_obj *olist,
-					t_light *llist, t_point *point)
+int				ft_getlight(t_obj *minobj, t_scene *scene,
+							t_point *point, t_vect *dir)
 {
 	t_color		*final_color;
 	int			color;
 	t_vect		*vect;
+	t_light		*llist;
+	t_line		line;
 
+	llist = scene->lights;
 	final_color = ft_colornew(0, 0, 0);
 	while (llist)
 	{
-		if ((vect = ft_get_shadow(minobj, olist, llist, point)) != NULL)
+		if ((vect = ft_get_shadow(minobj, scene->objs, llist, point)) != NULL)
 		{
-			color = ft_lightcolor(minobj, llist, vect, point);
+			line.dir = vect;
+			line.origin = point;
+			color = ft_lightcolor(minobj, llist, &line, dir);
 			final_color->r = (final_color->r < (((u_char*)&color)[0]))
 							? (((u_char*)&color)[0]) : final_color->r;
 			final_color->g = (final_color->g < (((u_char*)&color)[1]))

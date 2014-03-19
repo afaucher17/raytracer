@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 14:25:35 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/19 19:56:13 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,11 @@ t_vect			*ft_getdirvector(t_point *vpupleft, t_camera *camera,
 								int x, int y);
 
 /*
+** ft_vector2.c
+*/
+double			ft_get_dot(t_vect *ldir, t_vect *norm, t_vect *dir);
+
+/*
 ** ft_plane.c
 */
 t_plane			*ft_planenew(t_vect *vect, t_point *point);
@@ -127,20 +132,20 @@ void			ft_lightclear(t_light **light);
 void			ft_lightpushfront(t_light **light, t_point *point,
 									enum e_light type, t_color *color);
 int				ft_lightcolor(t_obj *obj, t_light *light,
-								t_vect *vect, t_point *point);
+								t_line *line, t_vect *dir);
 
 /*
 ** ft_getlight.c
 */
-int				ft_getlight(t_obj *minobj, t_obj *olist,
-							t_light *llist, t_point *point);
+int				ft_getlight(t_obj *minobj, t_scene *scene, t_point *point, t_vect *dir);
 
 /*
 ** ft_color.c
 */
 t_color			*ft_colornew(double r, double g, double b);
 int				ft_colorstoi(t_color *scolor);
-int				ft_getcolor(t_color *ocalor, t_color *lcolor, double cosa);
+int				ft_getcolor(t_color *ocalor, t_color *lcolor,
+							double cosa, double dot);
 
 /*
 ** image.c
