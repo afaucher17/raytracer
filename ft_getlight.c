@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 19:49:35 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/20 15:03:07 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,9 @@ int				ft_getlight(t_obj *minobj, t_scene *scene,
 			line.dir = vect;
 			line.origin = point;
 			color = ft_lightcolor(minobj, llist, &line, dir);
-			final_color->r = (final_color->r < (((u_char*)&color)[0]))
-							? (((u_char*)&color)[0]) : final_color->r;
-			final_color->g = (final_color->g < (((u_char*)&color)[1]))
-							? (((u_char*)&color)[1]) : final_color->g;
-			final_color->b = (final_color->b < (((u_char*)&color)[2]))
-							? (((u_char*)&color)[2]) : final_color->b;
+			final_color->r += (((u_char*)&color)[0]);
+			final_color->g += (((u_char*)&color)[1]);
+			final_color->b += (((u_char*)&color)[2]);
 		}
 		llist = llist->next;
 	}

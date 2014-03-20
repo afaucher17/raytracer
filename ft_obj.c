@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 18:22:09 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 20:17:19 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/20 14:40:22 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,5 @@ void			ft_objpushfront(t_obj **list, void *obj,
 	{
 		*list = new;
 		new->next = cur;
-	}
-}
-
-void			ft_inverseplane(t_obj *list, t_camera *camera)
-{
-	t_plane		*plane;
-
-	while (list)
-	{
-		if (list->type == O_PLANE)
-		{
-			plane = (t_plane*)list->obj;
-			if (ft_getangle(plane->vect, camera->dir) >= 0)
-			{
-				plane->vect->x = plane->vect->x * -1;
-				plane->vect->y = plane->vect->y * -1;
-				plane->vect->z = plane->vect->z * -1;
-				plane->d = -plane->d;
-			}
-		}
-		list = list->next;
 	}
 }

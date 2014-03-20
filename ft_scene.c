@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 18:20:37 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 20:14:37 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/20 15:01:48 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ t_scene				*ft_scenenew(int fd)
 		return (NULL);
 	new->objs = NULL;
 	new->lights = NULL;
-	new->camera = ft_cameranew(ft_pointnew(-400, 200, 200),
-					ft_vectornew(1, 0, 0), ft_vectornew(0, 1, 0));
+	new->camera = ft_cameranew(ft_pointnew(320, 200, -800),
+					ft_vectornew(0, 0, 1), ft_vectornew(0, 1, 0));
 	ft_parser(fd, &new->lights, &new->objs);
 	new->vpupleft = ft_getvpupleft(new->camera);
-	ft_inverseplane(new->objs, new->camera);
 	return (new);
 }

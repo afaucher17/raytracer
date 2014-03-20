@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 10:12:13 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 20:19:19 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/20 15:08:45 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int					ft_getcolor(t_color *ocolor, t_color *lcolor, double cosa, double dot)
 	int				color;
 
 	color = 0;
-	dot = (dot > 0) ? pow(dot, 20) * 0.8 : 0;
+	dot = (dot > 0) ? pow(dot, 50) * 0.8 * cosa : 0;
 	r = (((ocolor->r / 255.0) * (lcolor->r / 255.0) * cosa) + dot * (lcolor->r / 255.0)) * 255;
 	g = (((ocolor->g / 255.0) * (lcolor->g / 255.0) * cosa) + dot * (lcolor->g / 255.0)) * 255;
 	b = (((ocolor->b / 255.0) * (lcolor->b / 255.0) * cosa) + dot * (lcolor->b / 255.0)) * 255;

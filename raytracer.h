@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 19:56:13 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/20 14:40:33 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ t_point			*ft_getvpupleft(t_camera *camera);
 t_obj			*ft_objnew(void *obj, enum e_obj type, t_color *color);
 void			ft_objpushfront(t_obj **list, void *obj,
 								enum e_obj type, t_color *color);
-void			ft_inverseplane(t_obj *list, t_camera *camera);
 
 /*
 ** ft_sphere.c
