@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/20 14:40:33 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/21 13:56:32 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_scene			*ft_scenenew(int fd);
 /*
 ** ft_raytracer.c
 */
-void			ft_raytracer(t_mlx_img *img, t_scene *scene);
+void			*ft_raytracer(void *ptr_env);
 
 /*
 ** ft_point.c

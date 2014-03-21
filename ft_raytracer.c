@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 15:40:32 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/21 14:02:20 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,29 @@ int				ft_getinter(t_scene *scene, t_vect *dir)
 	return (0x000000);
 }
 
-void			ft_raytracer(t_mlx_img *img, t_scene *scene)
+void			*ft_raytracer(void *ptr_env)
 {
 	int			x;
 	int			y;
 	int			color;
 	t_vect		*dirv;
+	t_env		*env;
 
-	y = 0;
-	while (y < SIZE_Y)
+	env = (t_env*)ptr_env;
+	y = env->ystart;
+	while (y < env->yend)
 	{
-		x = 0;
-		while (x < SIZE_X)
+		x = env->xstart;
+		while (x < env->xend)
 		{
-			dirv = ft_getdirvector(scene->vpupleft, scene->camera, x, y);
-			color = ft_getinter(scene, dirv);
-			pixel_to_img(img, x, y, color);
+			dirv = ft_getdirvector(env->scene->vpupleft, env->scene->camera, x, y);
+			color = ft_getinter(env->scene, dirv);
+			pixel_to_img(env->img, x, y, color);
 			free(dirv);
 			x++;
 		}
 		y++;
 	}
+	printf("finished %d %d %d %d\n", env->xstart, env->xend, env->ystart, env->yend);
+	return (NULL);
 }

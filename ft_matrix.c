@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/18 19:51:01 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 14:32:01 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/21 18:04:27 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_point			*ft_rotate_point(t_point *origin, t_point *center, double mat[4][4])
 
 	if ((ret = ft_pointnew(0, 0, 0)) == NULL)
 		return (NULL);
-	
 	ret->x = (origin->x - center->x) * mat[0][0] + (origin->y - center->y)
 				* mat[0][1] + (origin->z - center->z) * mat[0][2];
 	ret->y = (origin->x - center->x) * mat[1][0] + (origin->y - center->y)

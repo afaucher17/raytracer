@@ -6,11 +6,12 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:43:30 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 14:51:41 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/21 14:06:11 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
+#include <pthread.h>
 
 static int		expose_hook(t_env *env)
 {
@@ -27,21 +28,60 @@ static int		key_hook(int keycode, t_env *env)
 	return (0);
 }
 
+static int		pthread_init(pthread_t *thread,
+								t_mlx_img *img, t_scene *scene, int quarter)
+{
+	t_env		*env;
+
+	if ((env = (t_env*)malloc(sizeof(t_env))) == NULL)
+		return (0);
+	env->xstart = (quarter % 2 == 1) ? 0 : SIZE_X / 2;
+	env->xend = (quarter % 2 == 1) ? SIZE_X / 2 : SIZE_X;
+	env->ystart = (quarter <= 2) ? 0 : SIZE_Y / 2;
+	env->yend = (quarter <= 2) ? SIZE_Y / 2 : SIZE_Y;
+	env->scene = scene;
+	env->img = img;
+	printf("thread created %d %d %d %d\n", env->xstart, env->xend, env->ystart, env->yend);
+	if (pthread_create(thread, NULL, ft_raytracer, env))
+	{
+		perror("raytracer: ");
+		exit(EXIT_FAILURE);
+	}
+	return (1);
+}
+
+static int		pthread_manage(t_mlx_img *img, t_scene *scene)
+{
+	pthread_t	thread1;
+	pthread_t	thread2;
+	pthread_t	thread3;
+	pthread_t	thread4;
+
+	pthread_init(&thread1, img, scene, 1);
+	pthread_init(&thread2, img, scene, 2);
+	pthread_init(&thread3, img, scene, 3);
+	pthread_init(&thread4, img, scene, 4);
+	if (pthread_join(thread1, NULL) || pthread_join(thread2, NULL)
+			|| pthread_join(thread3, NULL) || pthread_join(thread4, NULL))
+	{
+		perror("raytracer: ");
+		exit(EXIT_FAILURE);
+	}
+	return (1);
+}
+
 void			raytracer(int fd)
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_env		*env;
+	t_env		env;
 
-	env = (t_env*)malloc(sizeof(t_env));
-	if (!env)
-		return ;
 	mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, SIZE_X, SIZE_Y, "RTv1");
-	env->img = create_img(mlx_ptr, win_ptr, SIZE_X, SIZE_Y);
-	env->scene = ft_scenenew(fd);
-	ft_raytracer(env->img, env->scene);
-	mlx_expose_hook(win_ptr, expose_hook, env);
-	mlx_key_hook(win_ptr, key_hook, env);
+	env.img = create_img(mlx_ptr, win_ptr, SIZE_X, SIZE_Y);
+	env.scene = ft_scenenew(fd);
+	pthread_manage(env.img, env.scene);
+	mlx_expose_hook(win_ptr, expose_hook, &env);
+	mlx_key_hook(win_ptr, key_hook, &env);
 	mlx_loop(mlx_ptr);
 }
