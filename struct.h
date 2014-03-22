@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 19:12:49 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/21 13:36:37 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 16:14:02 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ enum				e_obj
 	O_CYLINDER,
 	O_CONE,
 	O_CUBE,
+	O_ELLIPSOID,
 	O_UNDEFINED
 };
 
@@ -78,11 +79,21 @@ typedef struct		s_cone
 	double			rot[4][4];
 }					t_cone;
 
+typedef struct		s_ellipse
+{
+	t_point			*center;
+	t_vect			*axis;
+	t_vect			*ray;
+	double			radius;
+	double			rot[4][4];
+}					t_ellipse;
+
 typedef struct		s_obj
 {
 	void			*obj;
 	enum e_obj		type;
 	t_color			*color;
+	double			spec;
 	struct s_obj	*next;
 }					t_obj;
 
@@ -144,8 +155,5 @@ typedef struct		s_env
 	t_mlx_img		*img;
 	t_scene			*scene;
 	int				xstart;
-	int				xend;
-	int				ystart;
-	int				yend;
 }					t_env;
 #endif /* !STRUCT_H */

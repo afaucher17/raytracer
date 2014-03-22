@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:43:30 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/21 14:06:11 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 16:22:24 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,10 @@ static int		pthread_init(pthread_t *thread,
 
 	if ((env = (t_env*)malloc(sizeof(t_env))) == NULL)
 		return (0);
-	env->xstart = (quarter % 2 == 1) ? 0 : SIZE_X / 2;
-	env->xend = (quarter % 2 == 1) ? SIZE_X / 2 : SIZE_X;
-	env->ystart = (quarter <= 2) ? 0 : SIZE_Y / 2;
-	env->yend = (quarter <= 2) ? SIZE_Y / 2 : SIZE_Y;
+	env->xstart = quarter;
 	env->scene = scene;
 	env->img = img;
-	printf("thread created %d %d %d %d\n", env->xstart, env->xend, env->ystart, env->yend);
+	printf("thread created %d\n", quarter);
 	if (pthread_create(thread, NULL, ft_raytracer, env))
 	{
 		perror("raytracer: ");
@@ -57,10 +54,10 @@ static int		pthread_manage(t_mlx_img *img, t_scene *scene)
 	pthread_t	thread3;
 	pthread_t	thread4;
 
-	pthread_init(&thread1, img, scene, 1);
-	pthread_init(&thread2, img, scene, 2);
-	pthread_init(&thread3, img, scene, 3);
-	pthread_init(&thread4, img, scene, 4);
+	pthread_init(&thread1, img, scene, 0);
+	pthread_init(&thread2, img, scene, 1);
+	pthread_init(&thread3, img, scene, 2);
+	pthread_init(&thread4, img, scene, 3);
 	if (pthread_join(thread1, NULL) || pthread_join(thread2, NULL)
 			|| pthread_join(thread3, NULL) || pthread_join(thread4, NULL))
 	{
@@ -77,7 +74,7 @@ void			raytracer(int fd)
 	t_env		env;
 
 	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, SIZE_X, SIZE_Y, "RTv1");
+	win_ptr = mlx_new_window(mlx_ptr, SIZE_X, SIZE_Y, "raytracer");
 	env.img = create_img(mlx_ptr, win_ptr, SIZE_X, SIZE_Y);
 	env.scene = ft_scenenew(fd);
 	pthread_manage(env.img, env.scene);

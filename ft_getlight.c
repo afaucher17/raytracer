@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/20 15:57:39 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 16:12:28 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static t_vect	*ft_get_shadow(t_obj *minobj, t_obj *olist,
 {
 	double		dist;
 	t_vect		*vect;
+	double		ret;
 	int			i;
 
 	vect = ft_get_lvect(llist, point);
@@ -47,8 +48,8 @@ static t_vect	*ft_get_shadow(t_obj *minobj, t_obj *olist,
 		while (olist != minobj && i < OBJ_SIZE)
 		{
 			if (g_objtab[i].type == olist->type
-				&& g_objtab[i].f_inter(olist->obj, point, vect) > 0
-				&& g_objtab[i].f_inter(olist->obj, point, vect) < dist)
+				&& ((ret = g_objtab[i].f_inter(olist->obj, point, vect)) > 0)
+				&& ret < dist)
 				return (NULL);
 			i++;
 		}

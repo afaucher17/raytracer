@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 18:38:34 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/20 14:44:39 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 15:09:14 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ double		ft_getangle(t_vect *v1, t_vect *v2)
 	return (cosa);
 }
 
-t_vect		*ft_getdirvector(t_point *vpupleft, t_camera *camera, int x, int y)
+t_vect		*ft_getdirvector(t_point *vpupleft, t_camera *camera,
+								double x, double y)
 {
 	t_vect	*res;
 

@@ -6,19 +6,19 @@
 /*   By: frale-co <frale-co@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:43:59 by frale-co          #+#    #+#             */
-/*   Updated: 2014/03/21 19:13:36 by frale-co         ###   ########.fr       */
+/*   Updated: 2014/03/22 15:46:16 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "raytracer.h"
 
-t_ellipse		*ft_ellispenew(t_point *center, t_vect *axis,
+t_ellipse		*ft_ellipsenew(t_point *center, t_vect *axis,
 							   t_vect *ray, double radius)
 {
 	t_ellipse	*new;
 
-	if ((new = (t_ellispe*)malloc(sizeof(t_ellipse))) == NULL)
+	if ((new = (t_ellipse*)malloc(sizeof(t_ellipse))) == NULL)
 		return (NULL);
 	new->center = center;
 	ray->x = ray->x * ray->x;
@@ -31,9 +31,9 @@ t_ellipse		*ft_ellispenew(t_point *center, t_vect *axis,
 	return (new);
 }
 
-void			ft_clearsphere(void **ptr_ellispse)
+void			ft_clearellipse(void **ptr_ellipse)
 {
-	t_ellispe	*ellipse;
+	t_ellipse	*ellipse;
 
 	ellipse = (t_ellipse*)*ptr_ellipse;
 	free(ellipse->center);
@@ -79,12 +79,12 @@ t_vect			*ft_normeellipse(void *ptr_ellipse,
 	t_vect		*rot;
 
 	ellipse = (t_ellipse*)ptr_ellipse;
-	origin = ft_rotate_point(origin, cone->center, cone->rot);
+	origin = ft_rotate_point(origin, ellipse->center, ellipse->rot);
 	if ((vect = ft_vectornew(origin->x - ellipse->center->x,
 		origin->y - ellipse->center->y,
 		origin->z - ellipse->center->z)) == NULL)
 		return (NULL);
-	rot = ft_rotate_vect(dir, cone->rot);
+	rot = ft_rotate_vect(dir, ellipse->rot);
 	dir->x = rot->x;
 	dir->y = rot->y;
 	dir->z = rot->z;

@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 18:22:09 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/20 14:40:22 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 16:09:47 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_objfun	g_objtab[OBJ_SIZE] =
 		ft_clearplane, ft_fillplane},
 	{"cylinder", O_CYLINDER, ft_normecylinder, ft_intercylinder,
 		ft_clearcylinder, ft_fillcylinder},
-	{"cone", O_CONE, ft_normecone, ft_intercone, ft_clearcone, ft_fillcone}
+	{"cone", O_CONE, ft_normecone, ft_intercone, ft_clearcone, ft_fillcone},
+	{"ellipsoid", O_ELLIPSOID, ft_normeellipse, ft_interellipse,
+		ft_clearellipse, ft_fillellipse}
 };
 
 t_obj			*ft_objnew(void *obj, enum e_obj type, t_color *color)
@@ -33,7 +35,22 @@ t_obj			*ft_objnew(void *obj, enum e_obj type, t_color *color)
 	new->type = type;
 	new->next = NULL;
 	new->color = color;
+	new->spec = 0;
 	return (new);
+}
+
+void			ft_objaddfront(t_obj **list, t_obj *obj)
+{
+	t_obj		*cur;
+
+	cur = *list;
+	if (!cur)
+		*list = obj;
+	else
+	{
+		*list = obj;
+		obj->next = cur;
+	}
 }
 
 void			ft_objpushfront(t_obj **list, void *obj,
