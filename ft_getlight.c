@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 16:12:28 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 20:54:38 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,35 @@ static t_vect	*ft_get_shadow(t_obj *minobj, t_obj *olist,
 	return (vect);
 }
 
+int				ft_reflection(t_line *line, t_scene *scene, t_obj *obj, int depth)
+{
+	t_vect		*normal;
+	double		cosa;
+	int			i;
+	int			color;
+
+	i = 0;
+	color = 0;
+	while (i < OBJ_SIZE)
+	{
+		if (g_objtab[i].type == obj->type)
+			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
+		i++;
+	}
+	cosa = ft_getangle(line->dir, normal);
+	line->dir->x = -cosa * line->dir->x;
+	line->dir->y = -cosa * line->dir->y;
+	line->dir->z = -cosa * line->dir->z;
+	if (depth > 0)
+		color = ft_getinter(scene, line->origin, line->dir, depth - 1, obj);
+	(((u_char*)&color)[0]) *= 0.5;
+	(((u_char*)&color)[1]) *= 0.5;
+	(((u_char*)&color)[2]) *= 0.5;
+	return (color);
+}
+
 int				ft_getlight(t_obj *minobj, t_scene *scene,
-							t_point *point, t_vect *dir)
+							t_line *lineo, int depth)
 {
 	t_color		*final_color;
 	int			color;
@@ -71,19 +98,16 @@ int				ft_getlight(t_obj *minobj, t_scene *scene,
 	final_color = ft_colornew(0, 0, 0);
 	while (llist)
 	{
-		if ((vect = ft_get_shadow(minobj, scene->objs, llist, point)) != NULL)
+		if ((vect = ft_get_shadow(minobj, scene->objs,
+									llist, lineo->origin)) != NULL)
 		{
 			line.dir = vect;
-			line.origin = point;
-			color = ft_lightcolor(minobj, llist, &line, dir);
-			final_color->r += (((u_char*)&color)[0]);
-			final_color->g += (((u_char*)&color)[1]);
-			final_color->b += (((u_char*)&color)[2]);
+			line.origin = lineo->origin;
+			color = ft_lightcolor(minobj, llist, &line, lineo->dir);
+			ft_addcolor(final_color, color);
 		}
 		llist = llist->next;
 	}
-	final_color->r = (final_color->r > 255) ? 255 : final_color->r;
-	final_color->g = (final_color->g > 255) ? 255 : final_color->g;
-	final_color->b = (final_color->b > 255) ? 255 : final_color->b;
+	ft_addcolor(final_color, ft_reflection(lineo, scene, minobj, depth));
 	return (ft_colorstoi(final_color));
 }

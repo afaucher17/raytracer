@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 16:14:15 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 20:52:09 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ t_scene			*ft_scenenew(int fd);
 /*
 ** ft_raytracer.c
 */
+int				ft_getinter(t_scene *scene, t_point *origin,
+							t_vect *vect, int depth, t_obj *minobj);
 void			*ft_raytracer(void *ptr_env);
 
 /*
@@ -150,12 +152,13 @@ int				ft_lightcolor(t_obj *obj, t_light *light,
 /*
 ** ft_getlight.c
 */
-int				ft_getlight(t_obj *minobj, t_scene *scene, t_point *point, t_vect *dir);
+int				ft_getlight(t_obj *minobj, t_scene *scene, t_line *line, int depth);
 
 /*
 ** ft_color.c
 */
 t_color			*ft_colornew(double r, double g, double b);
+void			ft_addcolor(t_color *color, int colori);
 int				ft_colorstoi(t_color *scolor);
 int				ft_getcolor(t_obj *obj, t_color *lcolor,
 							double cosa, double dot);

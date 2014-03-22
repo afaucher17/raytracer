@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 16:16:01 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 20:56:40 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,45 @@ t_point				*ft_getdistpoint(t_point *origin, t_vect *dir, double dist)
 	return (new);
 }
 
-int					ft_getinter(t_scene *scene, t_vect *dir)
+int					ft_getinter(t_scene *scene, t_point *origin,
+								t_vect *dir, int depth, t_obj *minobj)
 {
 	double			min;
 	double			value;
-	t_obj			*minobj;
 	t_obj			*list;
 	int				i;
+	t_line			line;
 
 	list = scene->objs;
 	min = -1;
-	minobj = NULL;
 	while (list)
 	{
-		value = 0;
-		i = -1;
-		while (++i < OBJ_SIZE)
-			if (list->type == g_objtab[i].type)
-				value = g_objtab[i].f_inter(list->obj, scene->camera->origin, dir);
-		if (value > 0 && (value < min || min == -1) && (minobj = list))
-			min = value;
+		if (list != minobj)
+		{
+			value = 0;
+			i = -1;
+			while (++i < OBJ_SIZE)
+				if (list->type == g_objtab[i].type)
+					value = g_objtab[i].f_inter(list->obj, origin, dir);
+			if (value > 0 && (value < min || min == -1) && (minobj = list))
+				min = value;
+		}
 		list = list->next;
 	}
 	if (min != -1)
-		return (ft_getlight(minobj, scene,
-							ft_getdistpoint(scene->camera->origin, dir, min), dir));
+	{
+		line.origin = ft_getdistpoint(origin, dir, min);
+		line.dir = dir;
+		return (ft_getlight(minobj, scene, &line, depth));
+	}
 	return (0x000000);
 }
 
-static void			ft_addcolor(t_env *env, t_vect *dirv, double rgb[3])
+static void			ft_stackcolor(t_env *env, t_vect *dirv, double rgb[3])
 {
 	int				tmp;
 
-	tmp = ft_getinter(env->scene, dirv);
+	tmp = ft_getinter(env->scene, env->scene->camera->origin, dirv, 0, NULL);
 	rgb[0] += ((u_char*)&tmp)[0] / ANTIALIASING;
 	rgb[1] += ((u_char*)&tmp)[1] / ANTIALIASING;
 	rgb[2] += ((u_char*)&tmp)[2] / ANTIALIASING;
@@ -80,7 +86,7 @@ static int			ft_antialiasing(t_env *env, int x, int y, t_vect *dirv)
 		{
 			dirv = ft_getdirvector(env->scene->vpupleft,
 					env->scene->camera, x - i / sqrta, y - j / sqrta);
-			ft_addcolor(env, dirv, rgb);
+			ft_stackcolor(env, dirv, rgb);
 		}
 	}
 	((u_char*)&color)[0] = rgb[0];

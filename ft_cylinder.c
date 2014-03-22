@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/15 10:16:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/21 18:01:21 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 19:22:59 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ double			ft_intercylinder(void *ptr_cylinder,
 	cylinder = (t_cylinder*)ptr_cylinder;
 	dir = ft_rotate_vect(dir, cylinder->rot);
 	origin = ft_rotate_point(origin, cylinder->center, cylinder->rot);
-	a = pow(dir->x, 2) + pow(dir->z, 2);
+	a = dir->x * dir->x + dir->z * dir->z;
 	b = 2 * ((dir->x * (origin->x - cylinder->center->x))
 		+ (dir->z * (origin->z - cylinder->center->z)));
-	c = pow(origin->x - cylinder->center->x, 2)
-		+ pow(origin->z - cylinder->center->z, 2)
-		- pow(cylinder->radius, 2);
+	c = (origin->x - cylinder->center->x) * (origin->x - cylinder->center->x)
+		+ (origin->z - cylinder->center->z) * (origin->z - cylinder->center->z)
+		- (cylinder->radius) * (cylinder->radius);
 	det = pow(b, 2) - 4 * a * c;
 	if (det < 0)
 		return (-1);

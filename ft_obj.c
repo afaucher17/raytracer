@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 18:22:09 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 16:09:47 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 20:21:51 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_obj			*ft_objnew(void *obj, enum e_obj type, t_color *color)
 	new->next = NULL;
 	new->color = color;
 	new->spec = 0;
+	new->refl = 0;
 	return (new);
 }
 

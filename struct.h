@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 19:12:49 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 16:14:02 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 20:32:49 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct		s_obj
 	enum e_obj		type;
 	t_color			*color;
 	double			spec;
+	double			refl;
 	struct s_obj	*next;
 }					t_obj;
 

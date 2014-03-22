@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:18:31 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/20 15:37:59 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 19:25:53 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ double			ft_intersphere(void *ptr_sphere, t_point *origin, t_vect *dir)
 	t_sphere	*sphere;
 
 	sphere = (t_sphere*)ptr_sphere;
-	a = pow(dir->x, 2) + pow(dir->y, 2) + pow(dir->z, 2);
+	a = dir->x * dir->x + dir->y * dir->y + dir->z * dir->z;
 	b = 2 * (dir->x * (origin->x - sphere->center->x)
 		+ dir->y * (origin->y - sphere->center->y)
 		+ dir->z * (origin->z - sphere->center->z));

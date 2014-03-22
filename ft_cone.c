@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 11:43:53 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 15:41:14 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/22 19:25:12 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ double			ft_intercone(void *ptr_cone, t_point *origin, t_vect *dir)
 	cone = (t_cone*)ptr_cone;
 	dir = ft_rotate_vect(dir, cone->rot);
 	origin = ft_rotate_point(origin, cone->center, cone->rot);
-	a = pow(dir->x, 2) * cone->angle + pow(dir->z, 2) * cone->angle
-		- pow(dir->y, 2);
+	a = ((dir->x * dir->x) + (dir->z * dir->z)) * cone->angle
+		- (dir->y * dir->y);
 	b = 2 * ((dir->x * (origin->x - cone->center->x) * cone->angle)
 		+ (dir->z * (origin->z - cone->center->z) * cone->angle)
 		- (dir->y * (origin->y - cone->center->y)));
