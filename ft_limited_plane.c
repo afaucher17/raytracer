@@ -6,103 +6,106 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 18:36:58 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/23 20:45:00 by frale-co         ###   ########.fr       */
+/*   Updated: 2014/03/24 14:16:27 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
 
-t_plane			*ft_planenew(t_vect *vect, t_point *point)
+t_trigone			*ft_trigonenew(t_point *p1, t_point *p2, t_point *p3)
 {
-	t_plane		*new;
-	t_point		*pt1;
-	t_point		*pt2;
-	t_point		*pt3;
-	t_vect		*v1;
-	t_vect		*v2;
-	t_vect		*norm;
+	t_trigone	*new;
 
-	(void)vect;
-	(void)point;
-	pt1 = ft_pointnew(200, 150, 100);
-	pt2 = ft_pointnew(180, 120, 100);
-	pt3 = ft_pointnew(220, 120, 100);
-	v1 = ft_vectornew(pt1->x - pt2->x, pt1->y - pt2->y, pt1->z - pt2->z);
-	v2 = ft_vectornew(pt3->x - pt2->x, pt3->y - pt2->y, pt3->z - pt2->z);
-	norm = ft_crossproduct(v1, v2);
-	if ((new = (t_plane*)malloc(sizeof(t_plane))) == NULL)
+	if ((new = (t_trigone*)malloc(sizeof(t_trigone))) == NULL)
 		return (NULL);
-	new->vect = norm;
-	new->point = pt2;
-	new->d = -(norm->x * pt2->x + norm->y * pt2->y
-			   + norm->z * pt2->z);
+	new->pt1 = p1;
+	new->pt2 = p2;
+	new->pt3 = p3;
+	new->v1_2 = ft_vectornew(p2->x - p1->x, p2->y - p1->y, p2->z - p1->z);
+	new->v1_3 = ft_vectornew(p3->x - p1->x, p3->y - p1->y, p3->z - p1->z);
+	new->alpha = acos(ft_getangle(new->v1_2, new->v1_3));
+	new->v2_1 = ft_vectornew(p1->x - p2->x, p1->y - p2->y, p1->z - p2->z);
+	new->v2_3 = ft_vectornew(p3->x - p2->x, p3->y - p2->y, p3->z - p2->z);
+	new->beta = acos(ft_getangle(new->v2_1, new->v2_3));
+	new->dir = ft_crossproduct(v1_2, v1_3);
+	new->d = -(new->dir->x * p1->x + new->dir->y * p1->y
+			   + new->dir->z * p1->z);
 	return (new);
 }
 
-void			ft_clearplane(void **ptr_plane)
+void			ft_cleartrigone(void **ptr_trigone)
 {
-	t_plane		*plane;
+	t_trigone		*trigone;
 
-	plane = (t_plane*)*ptr_plane;
-	free(plane->vect);
-	free(plane->point);
-	*ptr_plane = NULL;
+	trigone = (t_trigone*)*ptr_trigone;
+	free(trigone->pt1);
+	free(trigone->pt2);
+	free(trigone->pt3);
+	free(trigone->v1_2);
+	free(trigone->v1_3);
+	free(trigone->v2_1);
+	free(trigone->v2_3);
+	free(trigone->dir);
+	free(trigone);
+	*ptr_trigone = NULL;
 }
 
-double			ft_interplane(void *ptr_plane, t_point *origin, t_vect *dir)
+int				ft_is_inside(t_trigone *tri, t_point *inter)
+{
+	t_vect		*v_inter;
+	double		angle;
+	vect		*v_dir;
+	int			ret;
+
+	ret = 0;
+	v_inter = ft_vectornew(inter->x - tri->pt1->x,
+						   inter->y - tri->pt1->y, inter->z - tri->pt1->z);
+	v_dir = ft_crossproduct(v1_2, v_inter);
+	angle = acos(ft_getangle(tri->v1_2, v_inter));
+	if (angle < tri->alpha && ft_getangle(tri->dir, v_dir != -1))
+	{
+		free(v_inter);
+		v_inter = ft_vectornew(inter->x - tri->pt2->x,
+							   inter->y - tri->pt2->y, inter->z - tri->pt2->z);
+		angle = acos(ft_getangle(v2_1, v_inter));
+		if (angle < tri->beta)
+			ret = 1;
+	}
+	free(v_inter);
+	free(inter);
+	free(v_dir);
+	return (ret);
+}
+
+double			ft_intertrigone(void *ptr_trigone, t_point *origin, t_vect *dir)
 {
 	double		r1;
 	double		r2;
-	t_plane		*plane;
-	t_point		*pt1;
-	t_point		*pt2;
-	t_point		*pt3;
-	t_point		*inter;
-	t_vect		*v1;
-	t_vect		*v2;
-	t_vect		*v_inter;
-	double		cosa;
-	double		cosb;
+	t_trigone	*trigone;
+	double		ret;
 
-	pt1 = ft_pointnew(200, 150, 100);
-	pt2 = ft_pointnew(180, 120, 100);
-	pt3 = ft_pointnew(220, 120, 100);
-	v1 = ft_vectornew(pt1->x - pt2->x, pt1->y - pt2->y, pt1->z - pt2->z);
-	v2 = ft_vectornew(pt3->x - pt2->x, pt3->y - pt2->y, pt3->z - pt2->z);
-	plane = (t_plane*)ptr_plane;
-	r1 = plane->vect->x * origin->x
-		+ plane->vect->y * origin->y
-		+ plane->vect->z * origin->z
-		+ plane->d;
-	r2 = plane->vect->x * dir->x + plane->vect->y * dir->y
-		+ plane->vect->z * dir->z;
-	if (-(r1 / r2) >= 0)
+	trigone = (t_trigone*)ptr_trigone;
+	r1 = trigone->dir->x * origin->x
+		+ trigone->dir->y * origin->y
+		+ trigone->dir->z * origin->z
+		+ trigone->d;
+	r2 = trigone->dir->x * dir->x + trigone->dir->y * dir->y
+		+ trigone->dir->z * dir->z;
+	ret = -(r1 / r2)
+	if (ret >= 0)
 	{
-		cosa = ft_getangle(v1, v2);
-		inter = ft_getdistpoint(origin, dir, -(r1 / r2));
-		v_inter = ft_vectornew(inter->x - pt2->x, inter->y - pt2->y, inter->z - pt2->z);
-		cosb = ft_getangle(v1, v_inter);
-		if (acos(cosb) < acos(cosa)
-			&& ft_getangle(ft_crossproduct(v1, v2), ft_crossproduct(v1, v_inter)) != -1)
-		{
-			v1 = ft_vectornew(pt2->x - pt1->x, pt2->y - pt1->y, pt2->z - pt1->z);
-			v2 = ft_vectornew(pt3->x - pt1->x, pt3->y - pt1->y, pt3->z - pt1->z);
-			cosa = ft_getangle(v1, v2);
-			v_inter = ft_vectornew(inter->x - pt1->x, inter->y - pt1->y, inter->z - pt1->z);
-			cosb = ft_getangle(v1, v_inter);
-			if (acos(cosb) < acos(cosa))
-				return (-(r1 / r2));
-		}
+		if (ft_is_inside(trigone, ft_getdistpoint(origin, dir, ret)))
+			return (ret);
 	}
 	return (0);
 }
 
-t_vect			*ft_normeplane(void *ptr_plane, t_point *origin, t_vect *dir)
+t_vect			*ft_normetrigone(void *ptr_trigone, t_point *origin, t_vect *dir)
 {
-	t_plane		*plane;
+	t_trigone		*trigone;
 
-	plane = (t_plane*)ptr_plane;
+	trigone = (t_trigone*)ptr_trigone;
 	(void)origin;
 	(void)dir;
-	return (plane->vect);
+	return (trigone->dir);
 }
