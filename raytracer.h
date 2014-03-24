@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 20:52:09 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/24 16:10:22 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define VP_DIST 1.0
 # define SIZE_X 1280.0
 # define SIZE_Y 896.0
-# define ANTIALIASING 4.0
+# define ANTIALIASING 9.0
 # define NB_THREAD 4
 # define X_INDENT VP_WIDTH / SIZE_X
 # define Y_INDENT VP_HEIGHT / SIZE_Y
@@ -159,6 +159,7 @@ int				ft_getlight(t_obj *minobj, t_scene *scene, t_line *line, int depth);
 */
 t_color			*ft_colornew(double r, double g, double b);
 void			ft_addcolor(t_color *color, int colori);
+void			ft_normcolor(t_color *color);
 int				ft_colorstoi(t_color *scolor);
 int				ft_getcolor(t_obj *obj, t_color *lcolor,
 							double cosa, double dot);

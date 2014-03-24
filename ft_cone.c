@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 11:43:53 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 19:25:12 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/24 15:52:34 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ double			ft_intercone(void *ptr_cone, t_point *origin, t_vect *dir)
 		+ pow(origin->z - cone->center->z, 2) * cone->angle
 		- pow(origin->y - cone->center->y, 2);
 	det = pow(b, 2) - 4 * a * c;
-	if (det < 0)
-		return (-1);
+	//if (det < 0)
+	//	return (-1);
 	return (ft_getmin((-b + sqrt(det)) / (2 * a),
 				(-b - sqrt(det)) / (2 * a)));
 }

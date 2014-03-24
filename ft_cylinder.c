@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/15 10:16:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 19:22:59 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/24 15:45:57 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ double			ft_intercylinder(void *ptr_cylinder,
 	c = (origin->x - cylinder->center->x) * (origin->x - cylinder->center->x)
 		+ (origin->z - cylinder->center->z) * (origin->z - cylinder->center->z)
 		- (cylinder->radius) * (cylinder->radius);
-	det = pow(b, 2) - 4 * a * c;
-	if (det < 0)
-		return (-1);
+	det = b * b - 4 * a * c;
+//	if (det < 0)
+//		return (-1);
 	return (ft_getmin((-b + sqrt(det)) / (2 * a),
 				(-b - sqrt(det)) / (2 * a)));
 }

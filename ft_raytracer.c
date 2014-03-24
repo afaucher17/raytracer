@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 20:56:40 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/24 16:10:30 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,24 @@ t_point				*ft_getdistpoint(t_point *origin, t_vect *dir, double dist)
 }
 
 int					ft_getinter(t_scene *scene, t_point *origin,
-								t_vect *dir, int depth, t_obj *minobj)
+								t_vect *dir, int depth, t_obj *obj)
 {
 	double			min;
 	double			value;
 	t_obj			*list;
 	int				i;
 	t_line			line;
+	t_obj			*minobj;
 
 	list = scene->objs;
 	min = -1;
+	minobj = NULL;
 	while (list)
 	{
-		if (list != minobj)
+		value = 0;
+		i = -1;
+		if (obj != list)
 		{
-			value = 0;
-			i = -1;
 			while (++i < OBJ_SIZE)
 				if (list->type == g_objtab[i].type)
 					value = g_objtab[i].f_inter(list->obj, origin, dir);
@@ -62,7 +64,7 @@ static void			ft_stackcolor(t_env *env, t_vect *dirv, double rgb[3])
 {
 	int				tmp;
 
-	tmp = ft_getinter(env->scene, env->scene->camera->origin, dirv, 0, NULL);
+	tmp = ft_getinter(env->scene, env->scene->camera->origin, dirv, 3, NULL);
 	rgb[0] += ((u_char*)&tmp)[0] / ANTIALIASING;
 	rgb[1] += ((u_char*)&tmp)[1] / ANTIALIASING;
 	rgb[2] += ((u_char*)&tmp)[2] / ANTIALIASING;

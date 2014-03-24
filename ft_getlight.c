@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 20:54:38 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/24 15:39:27 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,29 @@ static t_vect	*ft_get_shadow(t_obj *minobj, t_obj *olist,
 int				ft_reflection(t_line *line, t_scene *scene, t_obj *obj, int depth)
 {
 	t_vect		*normal;
+	t_vect		vect;
 	double		cosa;
 	int			i;
 	int			color;
 
 	i = 0;
 	color = 0;
+	vect.x = line->dir->x;
+	vect.y = line->dir->y;
+	vect.z = line->dir->z;
 	while (i < OBJ_SIZE)
 	{
 		if (g_objtab[i].type == obj->type)
 			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
 		i++;
 	}
-	cosa = ft_getangle(line->dir, normal);
-	line->dir->x = -cosa * line->dir->x;
-	line->dir->y = -cosa * line->dir->y;
-	line->dir->z = -cosa * line->dir->z;
+	cosa = -ft_getangle(line->dir, normal);
+	line->dir->x = vect.x + 2 * cosa * normal->x;
+	line->dir->y = vect.y + 2 * cosa * normal->y;
+	line->dir->z = vect.z + 2 * cosa * normal->z;
+	ft_normalize(line->dir);
 	if (depth > 0)
 		color = ft_getinter(scene, line->origin, line->dir, depth - 1, obj);
-	(((u_char*)&color)[0]) *= 0.5;
-	(((u_char*)&color)[1]) *= 0.5;
-	(((u_char*)&color)[2]) *= 0.5;
 	return (color);
 }
 
