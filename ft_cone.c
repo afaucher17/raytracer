@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 11:43:53 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/24 15:52:34 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/25 14:54:31 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ double			ft_intercone(void *ptr_cone, t_point *origin, t_vect *dir)
 		+ pow(origin->z - cone->center->z, 2) * cone->angle
 		- pow(origin->y - cone->center->y, 2);
 	det = pow(b, 2) - 4 * a * c;
-	//if (det < 0)
-	//	return (-1);
+	if (det < 0)
+		return (-1);
 	return (ft_getmin((-b + sqrt(det)) / (2 * a),
 				(-b - sqrt(det)) / (2 * a)));
 }
@@ -72,10 +72,11 @@ t_vect			*ft_normecone(void *ptr_cone, t_point *origin, t_vect *dir)
 	t_vect		*rot;
 
 	cone = (t_cone*)ptr_cone;
+	dir->x = dir->x;
 	origin = ft_rotate_point(origin, cone->center, cone->rot);
-	if ((vect = ft_vectornew(origin->x - cone->center->x,
-					cos(cone->angle) / (origin->y - cone->center->y),
-					origin->z - cone->center->z)) == NULL)
+	if ((vect = ft_vectornew(origin->x,
+					cos(cone->angle) / (origin->y),
+					origin->z)) == NULL)
 		return (NULL);
 	rot = ft_rotate_vect(dir, cone->rot);
 	dir->x = rot->x;
