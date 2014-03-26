@@ -6,31 +6,35 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 13:11:33 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 14:50:19 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include			"raytracer.h"
 
-t_point				*ft_getdistpoint(t_point *origin, t_vect *dir, double dist)
+int					ft_getintervalue(t_obj *list, t_vect *dir,
+										t_obj *minobj, t_point *origin)
 {
-	t_point			*new;
+	int				i;
+	int				min;
+	int				value;
 
-	if ((new = ft_pointnew(0, 0, 0)) == NULL)
-		return (NULL);
-	new->x = origin->x + dir->x * dist;
-	new->y = origin->y + dir->y * dist;
-	new->z = origin->z + dir->z * dist;
-	return (new);
+	i = -1;
+	min = -1;
+	value = 0;
+	while (++i < OBJ_SIZE)
+		if (list->type == g_objtab[i].type)
+			value = g_objtab[i].f_inter(list->obj, origin, dir);
+	if (value > 0 && (value < min || min == -1) && (minobj = list))
+		min = value;
+	return (min);
 }
 
 int					ft_getinter(t_scene *scene, t_point *origin,
 								t_vect *dir, int depth, t_obj *obj)
 {
 	double			min;
-	double			value;
 	t_obj			*list;
-	int				i;
 	t_line			line;
 	t_obj			*minobj;
 
@@ -39,16 +43,8 @@ int					ft_getinter(t_scene *scene, t_point *origin,
 	minobj = NULL;
 	while (list)
 	{
-		value = 0;
-		i = -1;
 		if (obj != list)
-		{
-			while (++i < OBJ_SIZE)
-				if (list->type == g_objtab[i].type)
-					value = g_objtab[i].f_inter(list->obj, origin, dir);
-			if (value > 0 && (value < min || min == -1) && (minobj = list))
-				min = value;
-		}
+			min = ft_getintervalue(list, dir, minobj, origin);
 		list = list->next;
 	}
 	if (min != -1)

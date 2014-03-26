@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 18:36:58 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 10:55:01 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 14:33:15 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,4 @@ t_vect			*ft_normeplane(void *ptr_plane, t_point *origin, t_vect *dir)
 		ret->z = -plane->vect->z;
 	}
 	return (plane->vect);
-
 }

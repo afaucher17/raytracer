@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 13:12:58 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 14:32:41 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,28 +62,21 @@ int				ft_reflection(t_line *line, t_scene *scene,
 								t_obj *obj, int depth)
 {
 	t_vect		*normal;
-	t_vect		vect;
 	double		cosa;
 	int			i;
 	int			color;
 	t_color		*color2;
 
-	i = 0;
+	i = -1;
 	color = 0;
 	color2 = obj->color;
-	vect.x = line->dir->x;
-	vect.y = line->dir->y;
-	vect.z = line->dir->z;
-	while (i < OBJ_SIZE)
-	{
+	while (++i < OBJ_SIZE)
 		if (g_objtab[i].type == obj->type)
 			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
-		i++;
-	}
 	cosa = -ft_getangle(line->dir, normal);
-	line->dir->x = vect.x + 2 * cosa * normal->x;
-	line->dir->y = vect.y + 2 * cosa * normal->y;
-	line->dir->z = vect.z + 2 * cosa * normal->z;
+	line->dir->x += 2 * cosa * normal->x;
+	line->dir->y += 2 * cosa * normal->y;
+	line->dir->z += 2 * cosa * normal->z;
 	ft_normalize(line->dir);
 	if (depth > 0 && obj->refl > 0.0)
 		color = ft_getinter(scene, line->origin, line->dir, depth - 1, obj);
