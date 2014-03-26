@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/25 14:35:00 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:22:09 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "raytracer.h"
+#include			"raytracer.h"
 
 t_point				*ft_getdistpoint(t_point *origin, t_vect *dir, double dist)
 {
@@ -72,22 +72,24 @@ static void			ft_stackcolor(t_env *env, t_vect *dirv, double rgb[3])
 
 static int			ft_antialiasing(t_env *env, int x, int y, t_vect *dirv)
 {
-	int				i;
-	int				j;
+	int				idx[2];
 	static double	sqrta = 0;
 	int				color;
-	double			rgb[3] = {0, 0, 0};
+	double			rgb[3];
 
-	i = -1;
+	idx[0] = -1;
+	rgb[0] = 0;
+	rgb[1] = 0;
+	rgb[2] = 0;
 	if (sqrta == 0)
 		sqrta = sqrt(ANTIALIASING);
-	while (++i < sqrta)
+	while (++idx[0] < sqrta)
 	{
-		j = -1;
-		while (++j < sqrta)
+		idx[1] = -1;
+		while (++idx[1] < sqrta)
 		{
-			dirv = ft_getdirvector(env->scene->vpupleft,
-					env->scene->camera, x - i / sqrta, y - j / sqrta);
+			dirv = ft_getdirvector(env->scene->vpupleft, env->scene->camera,
+					x - idx[0] / sqrta, y - idx[1] / sqrta);
 			ft_stackcolor(env, dirv, rgb);
 		}
 	}
@@ -97,13 +99,13 @@ static int			ft_antialiasing(t_env *env, int x, int y, t_vect *dirv)
 	return (color);
 }
 
-void			*ft_raytracer(void *ptr_env)
+void				*ft_raytracer(void *ptr_env)
 {
-	int			x;
-	int			y;
-	int			color;
-	t_vect		*dirv;
-	t_env		*env;
+	int				x;
+	int				y;
+	int				color;
+	t_vect			*dirv;
+	t_env			*env;
 
 	env = (t_env*)ptr_env;
 	y = 0;

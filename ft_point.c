@@ -6,15 +6,12 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 12:21:23 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/24 15:50:05 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:01:24 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
 
-/*
-** This function creates a new point
-*/
 t_point				*ft_pointnew(double x, double y, double z)
 {
 	t_point			*point;
@@ -28,9 +25,6 @@ t_point				*ft_pointnew(double x, double y, double z)
 	return (point);
 }
 
-/*
-** This function places a pixel into an image.
-*/
 int					pixel_to_img(t_mlx_img *img, int x, int y, int color)
 {
 	long			index;
@@ -48,9 +42,6 @@ int					pixel_to_img(t_mlx_img *img, int x, int y, int color)
 	return (0);
 }
 
-/*
-** Gets the pixel color of an image at a position
-*/
 size_t				get_pixel_at(t_mlx_img *img, int x, int y)
 {
 	long			index;
@@ -70,9 +61,6 @@ size_t				get_pixel_at(t_mlx_img *img, int x, int y)
 	return (color);
 }
 
-/*
-** Calculates the distance between two points.
-*/
 double				point_distance(t_point *p1, t_point *p2, double rad)
 {
 	double			dist;
@@ -86,9 +74,9 @@ double				point_distance(t_point *p1, t_point *p2, double rad)
 	return (dist);
 }
 
-t_point			*ft_getvpupleft(t_camera *camera)
+t_point				*ft_getvpupleft(t_camera *camera)
 {
-	t_point		*new;
+	t_point			*new;
 
 	if ((new = ft_pointnew(0, 0, 0)) == NULL)
 		return (NULL);

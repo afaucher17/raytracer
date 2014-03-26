@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_plane.c                                         :+:      :+:    :+:   */
+/*   ft_trigone.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 18:36:58 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/24 14:16:27 by frale-co         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:47:11 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
 
-t_trigone			*ft_trigonenew(t_point *p1, t_point *p2, t_point *p3)
+t_trigone		*ft_trigonenew(t_point *p1, t_point *p2, t_point *p3)
 {
 	t_trigone	*new;
 
@@ -35,7 +35,7 @@ t_trigone			*ft_trigonenew(t_point *p1, t_point *p2, t_point *p3)
 
 void			ft_cleartrigone(void **ptr_trigone)
 {
-	t_trigone		*trigone;
+	t_trigone	*trigone;
 
 	trigone = (t_trigone*)*ptr_trigone;
 	free(trigone->pt1);
@@ -102,7 +102,7 @@ double			ft_intertrigone(void *ptr_trigone, t_point *origin, t_vect *dir)
 
 t_vect			*ft_normetrigone(void *ptr_trigone, t_point *origin, t_vect *dir)
 {
-	t_trigone		*trigone;
+	t_trigone	*trigone;
 
 	trigone = (t_trigone*)ptr_trigone;
 	(void)origin;

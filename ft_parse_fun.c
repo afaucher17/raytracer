@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 18:20:29 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 16:06:07 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 11:59:29 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			ft_fillcylinder(t_list **list, t_obj **olist)
 								ft_get_vect(list), ft_get_value(list));
 	obj = ft_objnew(cylinder, O_CYLINDER, ft_get_color(list));
 	ft_objaddfront(olist, obj);
-	obj->spec = ft_get_value(list) /100.0;
+	obj->spec = ft_get_value(list) / 100.0;
 }
 
 void			ft_fillcone(t_list **list, t_obj **olist)

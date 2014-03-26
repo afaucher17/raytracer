@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/25 14:28:40 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:45:40 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,8 @@ int				ft_lightcolor(t_obj *obj, t_light *light,
 /*
 ** ft_getlight.c
 */
-int				ft_getlight(t_obj *minobj, t_scene *scene, t_line *line, int depth);
+int				ft_getlight(t_obj *minobj, t_scene *scene,
+							t_line *line, int depth);
 
 /*
 ** ft_color.c
@@ -195,7 +196,21 @@ t_color			*ft_get_color(t_list **list);
 */
 void			ft_get_rotate_matrix(double cosx, double cosy,
 										double cosz, double rot[4][4]);
-void			ft_get_translate_matrix(t_point *center, double rot[4][4]);
-t_point			*ft_rotate_point(t_point *origin, t_point *center, double rot[4][4]);
+void			ft_get_translate_matrix(t_point *center,
+									double rot[4][4]);
+t_point			*ft_rotate_point(t_point *origin, t_point *center,
+									double rot[4][4]);
 t_vect			*ft_rotate_vect(t_vect *dir, double rot[4][4]);
-#endif /* !RTV1_H */
+
+/*
+** ft_trigone.c
+*/
+t_trigone		*ft_trigonenew(t_point *p1, t_point *p2, t_point *p3);
+void			ft_cleartrigone(void **ptr_trigone);
+int				ft_is_inside(t_trigone *tri, t_point *inter);
+double			ft_intertrigone(void *ptr_trigone, t_point *origin,
+									t_vect *dir);
+t_vect			*ft_normetrigone(void *ptr_trigone, t_point *origin,
+									t_vect *dir);
+
+#endif

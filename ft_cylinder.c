@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/15 10:16:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/25 14:45:06 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:14:44 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ double			ft_intercylinder(void *ptr_cylinder,
 	if (det < 0)
 		return (-1);
 	return (ft_getmin((-b + sqrt(det)) / (2 * a),
-				(-b - sqrt(det)) / (2 * a)));
+	(-b - sqrt(det)) / (2 * a)));
 }
 
 t_vect			*ft_normecylinder(void *ptr_cylinder, t_point *origin,

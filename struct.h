@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 19:12:49 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/24 12:06:13 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:43:54 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,4 +157,5 @@ typedef struct		s_env
 	t_scene			*scene;
 	int				xstart;
 }					t_env;
-#endif /* !STRUCT_H */
+
+#endif

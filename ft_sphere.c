@@ -6,11 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:18:31 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/24 15:49:51 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:13:24 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "raytracer.h"
+#include		"raytracer.h"
 
 t_sphere		*ft_spherenew(double x, double y, double z, double radius)
 {
@@ -33,7 +33,7 @@ void			ft_clearsphere(void **ptr_sphere)
 	*ptr_sphere = NULL;
 }
 
-double	ft_getmin(double t1, double t2)
+double			ft_getmin(double t1, double t2)
 {
 	if (t1 < 0 && t2 < 0)
 		return (-2);
@@ -64,7 +64,7 @@ double			ft_intersphere(void *ptr_sphere, t_point *origin, t_vect *dir)
 	if (det < 0)
 		return (-1);
 	return (ft_getmin(((-b + sqrt(det)) / (2 * a)),
-			((-b - sqrt(det)) / (2 * a))));
+	((-b - sqrt(det)) / (2 * a))));
 }
 
 t_vect			*ft_normesphere(void *ptr_sphere, t_point *origin, t_vect *dir)

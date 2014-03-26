@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/06 19:01:09 by afaucher          #+#    #+#             */
-/*   Updated: 2014/01/06 19:01:12 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:29:57 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strchr(const char *s, int c)
 	while (*s)
 	{
 		if (c == *s)
-			return ((char *) s);
+			return ((char *)s);
 		s++;
 	}
 	if (c == '\0')

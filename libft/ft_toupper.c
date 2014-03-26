@@ -6,15 +6,15 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 11:32:12 by afaucher          #+#    #+#             */
-/*   Updated: 2013/12/01 16:21:33 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:32:59 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include	"libft.h"
 
-int	ft_toupper(int c)
+int			ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
-		c = c + ('A' -'a');
+		c = c + ('A' - 'a');
 	return (c);
 }

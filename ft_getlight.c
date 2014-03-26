@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/25 14:44:17 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 11:58:43 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static t_vect	*ft_get_shadow(t_obj *minobj, t_obj *olist,
 	return (vect);
 }
 
-int				ft_reflection(t_line *line, t_scene *scene, t_obj *obj, int depth)
+int				ft_reflection(t_line *line, t_scene *scene,
+								t_obj *obj, int depth)
 {
 	t_vect		*normal;
 	t_vect		vect;

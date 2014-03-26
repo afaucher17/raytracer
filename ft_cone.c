@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 11:43:53 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/25 14:54:31 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:14:23 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ double			ft_intercone(void *ptr_cone, t_point *origin, t_vect *dir)
 	if (det < 0)
 		return (-1);
 	return (ft_getmin((-b + sqrt(det)) / (2 * a),
-				(-b - sqrt(det)) / (2 * a)));
+	(-b - sqrt(det)) / (2 * a)));
 }
 
 t_vect			*ft_normecone(void *ptr_cone, t_point *origin, t_vect *dir)

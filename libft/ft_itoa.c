@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 15:09:56 by afaucher          #+#    #+#             */
-/*   Updated: 2014/01/06 19:00:32 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:26:37 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char		*ft_itoa(int n)
 
 	digit = 0;
 	isnegative = negative(n);
-	numb = (long) n * isnegative;
+	numb = (long)n * isnegative;
 	while (n >= 10 || n <= -10)
 	{
 		digit++;

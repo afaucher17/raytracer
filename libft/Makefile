@@ -6,7 +6,7 @@
 #    By: afaucher <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/20 14:23:30 by afaucher          #+#    #+#              #
-#    Updated: 2014/02/09 18:34:14 by afaucher         ###   ########.fr        #
+#    Updated: 2014/03/26 12:25:45 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SOURCES = ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
 		ft_lstinv.c ft_match.c ft_nmatch.c ft_memdup.c ft_puttab.c \
 		ft_puttab_fd.c ft_strintab.c ft_swap.c ft_sort_wordtab.c \
 		ft_align_right.c ft_align_left.c ft_nbdigit.c ft_tostr.c \
-		ft_getfilename.c ft_lstlen.c ft_get_next_line.c ft_lstpushback.c \
+		ft_lstlen.c ft_get_next_line.c ft_lstpushback.c \
 		ft_dlstnew.c ft_dlstpushfront.c ft_dlist_clear.c ft_list_clear.c \
 		ft_clear_tab.c \
 		maths/maths.c maths/maths2.c \

@@ -6,15 +6,14 @@
 /*   By: frale-co <frale-co@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:43:59 by frale-co          #+#    #+#             */
-/*   Updated: 2014/03/22 15:46:16 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:15:00 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "raytracer.h"
+#include		"raytracer.h"
 
 t_ellipse		*ft_ellipsenew(t_point *center, t_vect *axis,
-							   t_vect *ray, double radius)
+								t_vect *ray, double radius)
 {
 	t_ellipse	*new;
 
@@ -68,11 +67,11 @@ double			ft_interellipse(void *ptr_ellipse, t_point *origin, t_vect *dir)
 	if (det < 0)
 		return (-1);
 	return (ft_getmin(((-b + sqrt(det)) / (2 * a)),
-			((-b - sqrt(det)) / (2 * a))));
+	((-b - sqrt(det)) / (2 * a))));
 }
 
 t_vect			*ft_normeellipse(void *ptr_ellipse,
-								 t_point *origin, t_vect *dir)
+								t_point *origin, t_vect *dir)
 {
 	t_vect		*vect;
 	t_ellipse	*ellipse;

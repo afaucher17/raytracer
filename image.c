@@ -6,15 +6,12 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/17 13:11:43 by afaucher          #+#    #+#             */
-/*   Updated: 2014/02/12 12:58:54 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:05:46 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
 
-/*
-** This functions creates an image. It's pretty straightforward actually.
-*/
 t_mlx_img		*create_img(void *mlx_ptr, void *win_ptr, int width, int height)
 {
 	t_mlx_img	*mlx_img;
@@ -37,9 +34,6 @@ t_mlx_img		*create_img(void *mlx_ptr, void *win_ptr, int width, int height)
 	return (mlx_img);
 }
 
-/*
-** Create an image from an xpm file.
-*/
 t_mlx_img		*get_xpm_image(void *mlx_ptr, char *filename)
 {
 	t_mlx_img	*mlx_img;
@@ -56,9 +50,6 @@ t_mlx_img		*get_xpm_image(void *mlx_ptr, char *filename)
 	return (mlx_img);
 }
 
-/*
-** Darken a color according to a ratio.
-*/
 int				darken_color(int color, int bpp, char ratio)
 {
 	int			i;
