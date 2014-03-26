@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 18:20:29 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/22 16:06:07 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/25 21:30:18 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void			ft_fillplane(t_list **list, t_obj **olist)
 	obj = ft_objnew(plane, O_PLANE, ft_get_color(list));
 	ft_objaddfront(olist, obj);
 	obj->spec = ft_get_value(list) / 100.0;
+	obj->refl = ft_get_value(list) / 100.0;
 }
 
 void			ft_fillsphere(t_list **list, t_obj **olist)
@@ -35,6 +36,7 @@ void			ft_fillsphere(t_list **list, t_obj **olist)
 	obj = ft_objnew(sphere, O_SPHERE, ft_get_color(list));
 	ft_objaddfront(olist, obj);
 	obj->spec = ft_get_value(list) / 100.0;
+	obj->refl = ft_get_value(list) / 100.0;
 }
 
 void			ft_fillcylinder(t_list **list, t_obj **olist)
@@ -47,6 +49,7 @@ void			ft_fillcylinder(t_list **list, t_obj **olist)
 	obj = ft_objnew(cylinder, O_CYLINDER, ft_get_color(list));
 	ft_objaddfront(olist, obj);
 	obj->spec = ft_get_value(list) /100.0;
+	obj->refl = ft_get_value(list) / 100.0;
 }
 
 void			ft_fillcone(t_list **list, t_obj **olist)
@@ -60,4 +63,5 @@ void			ft_fillcone(t_list **list, t_obj **olist)
 	obj = ft_objnew(cone, O_CONE, ft_get_color(list));
 	ft_objaddfront(olist, obj);
 	obj->spec = ft_get_value(list) / 100.0;
+	obj->refl = ft_get_value(list) / 100.0;
 }

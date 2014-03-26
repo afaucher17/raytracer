@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/18 19:51:01 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/25 14:30:59 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 12:51:01 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,23 @@ void			ft_get_rotate_matrix(double cosx, double cosy,
 	mat[2][2] = cosx * cosy;
 }
 
-void			ft_get_translate_matrix(t_point *center, double mat[4][4])
+void			ft_get_inv_matrix(double rot[4][4], double inv[4][4])
 {
-	mat[0][3] = mat[0][0] * center->x + mat[0][1] * center->y + mat[0][2] * center->z;
-	mat[1][3] = mat[1][0] * center->x + mat[1][1] * center->y + mat[1][2] * center->z;
-	mat[2][3] = mat[2][0] * center->x + mat[2][1] * center->y + mat[2][2] * center->z;
+	double		det;
+
+	det = rot[0][0] * rot[1][1] * rot[2][2] + rot[0][1] * rot[1][2] * rot[2][0]
+		+ rot[0][2] * rot[1][0] * rot[2][1] - rot[0][2] * rot[1][1] * rot[2][0]
+		- rot[1][2] * rot[2][1] * rot[0][0] - rot[2][2] * rot[0][1] * rot[1][0];
+	det = 1 / det;
+	inv[0][0] = (rot[1][1] * rot[2][2] - rot[1][2] * rot[2][1]) * det;
+	inv[1][0] = (rot[1][2] * rot[2][0] - rot[1][0] * rot[2][2]) * det;
+	inv[2][0] = (rot[1][0] * rot[2][1] - rot[1][1] * rot[2][0]) * det;
+	inv[0][1] = (rot[0][2] * rot[2][1] - rot[0][1] * rot[2][2]) * det;
+	inv[1][1] = (rot[0][0] * rot[2][2] - rot[0][2] * rot[2][0]) * det;
+	inv[2][1] = (rot[0][1] * rot[2][0] - rot[0][0] * rot[2][1]) * det;
+	inv[0][2] = (rot[0][1] * rot[1][2] - rot[1][1] * rot[0][2]) * det;
+	inv[1][2] = (rot[0][2] * rot[1][0] - rot[1][2] * rot[0][0]) * det;
+	inv[2][2] = (rot[0][0] * rot[1][1] - rot[1][0] * rot[0][1]) * det;
 }
 
 t_point			*ft_rotate_point(t_point *origin, t_point *center, double mat[4][4])

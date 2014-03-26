@@ -6,11 +6,11 @@
 #    By: afaucher <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/20 14:23:30 by afaucher          #+#    #+#              #
-#    Updated: 2014/03/22 20:37:00 by afaucher         ###   ########.fr        #
+#    Updated: 2014/03/25 15:08:19 by afaucher         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = /usr/bin/cc
 
 SOURCES = raytracer.c ft_obj.c ft_point.c ft_raytracer.c ft_scene.c \
 		ft_sphere.c ft_vector.c ft_vector2.c image.c main.c ft_plane.c \

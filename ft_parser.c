@@ -6,29 +6,41 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 18:20:13 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/19 20:16:28 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/25 20:45:17 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include		"raytracer.h"
 
-static void		ft_fill(t_list *list, t_light **llist)
+static void		ft_fillcamera(t_list **list, t_camera **camera)
 {
-	int			i;
+	t_point		*point;
+	t_vect		*dir;
+	t_vect		*up;
+
+	point = ft_pointnew(ft_get_value(list), ft_get_value(list),
+						ft_get_value(list));
+	dir = ft_vectornew(ft_get_value(list), ft_get_value(list),
+						ft_get_value(list));
+	up = ft_vectornew(ft_get_value(list), ft_get_value(list),
+						ft_get_value(list));
+	*camera = ft_cameranew(point, dir, up);
+}
+
+static void		ft_fill(t_list **list, t_light **llist)
+{
 	t_point		*point;
 	t_color		*color;
 
-	i = 0;
-	point = ft_pointnew(ft_atoi(list->content), ft_atoi(list->next->content),
-							ft_atoi(list->next->next->content));
-	while (i++ < 3)
-		list = list->next;
-	color = ft_colornew(ft_atoi(list->content), ft_atoi(list->next->content),
-						ft_atoi(list->next->next->content));
+	point = ft_pointnew(ft_get_value(list), ft_get_value(list),
+							ft_get_value(list));
+	color = ft_colornew(ft_get_value(list), ft_get_value(list),
+						ft_get_value(list));
 	ft_lightpushfront(llist, point, L_OMNI, color);
 }
 
-void			ft_parser(int fd, t_light **llist, t_obj **olist)
+void			ft_parser(int fd, t_light **llist,
+							t_obj **olist, t_camera **camera)
 {
 	int			i;
 	t_list		*list;
@@ -48,7 +60,9 @@ void			ft_parser(int fd, t_light **llist, t_obj **olist)
 				i++;
 			}
 			if (ft_strequ("light", list->content))
-				ft_fill(list->next, llist);
+				ft_fill(&list->next, llist);
+			if (ft_strequ("camera", list->content))
+				ft_fillcamera(&list->next, camera);
 			list = list->next;
 		}
 		free(line);

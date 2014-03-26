@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 18:36:58 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/24 14:48:27 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 10:55:01 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,20 @@ double			ft_interplane(void *ptr_plane, t_point *origin, t_vect *dir)
 t_vect			*ft_normeplane(void *ptr_plane, t_point *origin, t_vect *dir)
 {
 	t_plane		*plane;
+	t_vect		*ret;
+	double		angle;
 
 	plane = (t_plane*)ptr_plane;
+	angle = ft_getangle(dir, plane->vect);
 	(void)origin;
-	(void)dir;
+	if (angle < 0)
+	{
+		if ((ret = ft_vectornew(0, 0, 0)) == NULL)
+			return (NULL);
+		ret->x = -plane->vect->x;
+		ret->y = -plane->vect->y;
+		ret->z = -plane->vect->z;
+	}
 	return (plane->vect);
+
 }
