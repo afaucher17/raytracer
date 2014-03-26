@@ -6,14 +6,14 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 14:50:19 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 15:05:25 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include			"raytracer.h"
 
 int					ft_getintervalue(t_obj *list, t_vect *dir,
-										t_obj *minobj, t_point *origin)
+										t_obj **minobj, t_point *origin)
 {
 	int				i;
 	int				min;
@@ -25,7 +25,7 @@ int					ft_getintervalue(t_obj *list, t_vect *dir,
 	while (++i < OBJ_SIZE)
 		if (list->type == g_objtab[i].type)
 			value = g_objtab[i].f_inter(list->obj, origin, dir);
-	if (value > 0 && (value < min || min == -1) && (minobj = list))
+	if (value > 0 && (value < min || min == -1) && (*minobj = list))
 		min = value;
 	return (min);
 }
@@ -44,7 +44,7 @@ int					ft_getinter(t_scene *scene, t_point *origin,
 	while (list)
 	{
 		if (obj != list)
-			min = ft_getintervalue(list, dir, minobj, origin);
+			min = ft_getintervalue(list, dir, &minobj, origin);
 		list = list->next;
 	}
 	if (min != -1)
