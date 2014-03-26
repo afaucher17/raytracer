@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 14:32:41 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:19:23 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,40 @@ static t_vect	*ft_get_shadow(t_obj *minobj, t_obj *olist,
 	return (vect);
 }
 
-int				ft_reflection(t_line *line, t_scene *scene,
-								t_obj *obj, int depth)
+static int		ft_refraction(t_line *line, t_obj *obj, int depth)
+{
+	double		n;
+	double		cosi;
+	double		sint2;
+	double		cost;
+	t_vect		*normal;
+	int			i;
+	int			color;
+
+	depth = 0;
+	color = 0;
+	i = -1;
+	while (++i < OBJ_SIZE)
+		if (g_objtab[i].type == obj->type)
+			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
+	n = 1 / obj->refl;
+	cosi = -ft_getangle(line->dir, normal);
+	sint2 = n * n * (1.0 - cosi * cosi);
+	if (sint2 > 1.0)
+		return (0);
+	cost = sqrt(1.0 - sint2);
+	line->dir->x = n * line->dir->x + (n * cosi - cost) * normal->x;
+	line->dir->y = n * line->dir->y + (n * cosi - cost) * normal->y;
+	line->dir->z = n * line->dir->z + (n * cosi - cost) * normal->z;
+	if (obj->refl > 0.0)
+		color = ft_getinter(line->origin, line->dir, 0, obj);
+	((u_char*)&color)[0] *= obj->refl;
+	((u_char*)&color)[1] *= obj->refl;
+	((u_char*)&color)[2] *= obj->refl;
+	return (color);
+}
+
+int				ft_reflection(t_line *line, t_obj *obj, int depth)
 {
 	t_vect		*normal;
 	double		cosa;
@@ -79,15 +111,14 @@ int				ft_reflection(t_line *line, t_scene *scene,
 	line->dir->z += 2 * cosa * normal->z;
 	ft_normalize(line->dir);
 	if (depth > 0 && obj->refl > 0.0)
-		color = ft_getinter(scene, line->origin, line->dir, depth - 1, obj);
+		color = ft_getinter(line->origin, line->dir, depth - 1, obj);
 	((u_char*)&color)[0] *= obj->refl;
 	((u_char*)&color)[1] *= obj->refl;
 	((u_char*)&color)[2] *= obj->refl;
 	return (color);
 }
 
-int				ft_getlight(t_obj *minobj, t_scene *scene,
-							t_line *lineo, int depth)
+int				ft_getlight(t_obj *minobj, t_line *lineo, int depth)
 {
 	t_color		*final_color;
 	int			color;
@@ -95,11 +126,11 @@ int				ft_getlight(t_obj *minobj, t_scene *scene,
 	t_light		*llist;
 	t_line		line;
 
-	llist = scene->lights;
+	llist = g_scene->lights;
 	final_color = ft_colornew(0, 0, 0);
 	while (llist)
 	{
-		if ((vect = ft_get_shadow(minobj, scene->objs,
+		if ((vect = ft_get_shadow(minobj, g_scene->objs,
 									llist, lineo->origin)) != NULL)
 		{
 			line.dir = vect;
@@ -109,6 +140,6 @@ int				ft_getlight(t_obj *minobj, t_scene *scene,
 		}
 		llist = llist->next;
 	}
-	ft_addcolor(final_color, ft_reflection(lineo, scene, minobj, depth));
+	ft_addcolor(final_color, ft_refraction(lineo, minobj, depth));
 	return (ft_colorstoi(final_color));
 }

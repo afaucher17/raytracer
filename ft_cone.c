@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 11:43:53 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 13:58:31 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 15:22:48 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_vect			*ft_normecone(void *ptr_cone, t_point *origin, t_vect *dir)
 
 	cone = (t_cone*)ptr_cone;
 	(void)dir;
+	origin = ft_rotate_point(origin, cone->center, cone->rot);
 	if ((vect = ft_vectornew(origin->x - cone->center->x,
 					cos(cone->angle) / (origin->y - cone->center->y),
 					origin->z - cone->center->z)) == NULL)

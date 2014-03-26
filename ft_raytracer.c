@@ -6,21 +6,23 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 15:05:25 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 16:01:32 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include			"raytracer.h"
 
-int					ft_getintervalue(t_obj *list, t_vect *dir,
-										t_obj **minobj, t_point *origin)
+int					ft_getintervalue(t_obj *list, t_line *line,
+										t_obj **minobj, int min)
 {
 	int				i;
-	int				min;
 	int				value;
+	t_vect			*dir;
+	t_point			*origin;
 
+	origin = line->origin;
+	dir = line->dir;
 	i = -1;
-	min = -1;
 	value = 0;
 	while (++i < OBJ_SIZE)
 		if (list->type == g_objtab[i].type)
@@ -30,43 +32,44 @@ int					ft_getintervalue(t_obj *list, t_vect *dir,
 	return (min);
 }
 
-int					ft_getinter(t_scene *scene, t_point *origin,
-								t_vect *dir, int depth, t_obj *obj)
+int					ft_getinter(t_point *origin, t_vect *dir,
+								int depth, t_obj *obj)
 {
 	double			min;
 	t_obj			*list;
 	t_line			line;
 	t_obj			*minobj;
 
-	list = scene->objs;
+	list = g_scene->objs;
+	line.dir = dir;
+	line.origin = origin;
 	min = -1;
 	minobj = NULL;
 	while (list)
 	{
 		if (obj != list)
-			min = ft_getintervalue(list, dir, &minobj, origin);
+			min = ft_getintervalue(list, &line, &minobj, min);
 		list = list->next;
 	}
 	if (min != -1)
 	{
 		line.origin = ft_getdistpoint(origin, dir, min);
-		line.dir = dir;
-		return (ft_getlight(minobj, scene, &line, depth));
+		return (ft_getlight(minobj, &line, depth));
 	}
 	return (0x000000);
 }
 
-static void			ft_stackcolor(t_env *env, t_vect *dirv, double rgb[3])
+static void			ft_stackcolor(t_vect *dirv, double rgb[3])
 {
 	int				tmp;
 
-	tmp = ft_getinter(env->scene, env->scene->camera->origin, dirv, 5, NULL);
+	tmp = ft_getinter(g_scene->camera->origin, dirv, 5, NULL);
 	rgb[0] += ((u_char*)&tmp)[0] / ANTIALIASING;
 	rgb[1] += ((u_char*)&tmp)[1] / ANTIALIASING;
 	rgb[2] += ((u_char*)&tmp)[2] / ANTIALIASING;
 }
 
-static int			ft_antialiasing(t_env *env, int x, int y, t_vect *dirv)
+static int			ft_antialiasing(int x, int y, t_vect *dirv)
 {
 	int				idx[2];
 	static double	sqrta = 0;
@@ -74,9 +77,9 @@ static int			ft_antialiasing(t_env *env, int x, int y, t_vect *dirv)
 	double			rgb[3];
 
 	idx[0] = -1;
-	rgb[0] = 0;
-	rgb[1] = 0;
-	rgb[2] = 0;
+	rgb[0] = 0.0;
+	rgb[1] = 0.0;
+	rgb[2] = 0.0;
 	if (sqrta == 0)
 		sqrta = sqrt(ANTIALIASING);
 	while (++idx[0] < sqrta)
@@ -84,9 +87,9 @@ static int			ft_antialiasing(t_env *env, int x, int y, t_vect *dirv)
 		idx[1] = -1;
 		while (++idx[1] < sqrta)
 		{
-			dirv = ft_getdirvector(env->scene->vpupleft, env->scene->camera,
+			dirv = ft_getdirvector(g_scene->vpupleft, g_scene->camera,
 					x - idx[0] / sqrta, y - idx[1] / sqrta);
-			ft_stackcolor(env, dirv, rgb);
+			ft_stackcolor(dirv, rgb);
 		}
 	}
 	((u_char*)&color)[0] = rgb[0];
@@ -111,7 +114,7 @@ void				*ft_raytracer(void *ptr_env)
 		x = env->xstart;
 		while (x < SIZE_X)
 		{
-			color = ft_antialiasing(env, x, y, dirv);
+			color = ft_antialiasing(x, y, dirv);
 			pixel_to_img(env->img, x, y, color);
 			free(dirv);
 			x += NB_THREAD;

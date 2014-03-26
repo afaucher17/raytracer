@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/15 10:16:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 14:31:03 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 15:22:28 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_vect			*ft_normecylinder(void *ptr_cylinder, t_point *origin,
 
 	(void)dir;
 	cylinder = (t_cylinder*)ptr_cylinder;
+	origin = ft_rotate_point(origin, cylinder->center, cylinder->rot);
 	if ((vect = ft_vectornew(origin->x - cylinder->center->x, 0,
 							origin->z - cylinder->center->z)) == NULL)
 		return (NULL);

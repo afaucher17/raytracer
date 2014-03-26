@@ -6,11 +6,13 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 18:20:37 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 13:04:03 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 15:55:02 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
+
+t_scene				*g_scene;
 
 t_camera			*ft_cameranew(t_point *origin, t_vect *dir,
 							t_vect *up)
@@ -44,7 +46,7 @@ t_scene				*ft_scenenew(int fd)
 		return (NULL);
 	new->objs = NULL;
 	new->lights = NULL;
-	new->camera = ft_cameranew(ft_pointnew(320, 200, -1000),
+	new->camera = ft_cameranew(ft_pointnew(320, 200, -800),
 					ft_vectornew(0, 0, 1), ft_vectornew(0, 1, 0));
 	ft_parser(fd, &new->lights, &new->objs, &new->camera);
 	new->vpupleft = ft_getvpupleft(new->camera);

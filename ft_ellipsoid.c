@@ -6,7 +6,7 @@
 /*   By: frale-co <frale-co@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:43:59 by frale-co          #+#    #+#             */
-/*   Updated: 2014/03/26 13:13:13 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 16:04:04 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_ellipse		*ft_ellipsenew(t_point *center, t_vect *axis,
 	new->axis = axis;
 	new->radius = radius;
 	ft_get_rotate_matrix(axis->x, axis->y, axis->z, new->rot);
+	ft_get_inv_matrix(new->rot, new->inv);
 	return (new);
 }
 
@@ -75,17 +76,13 @@ t_vect			*ft_normeellipse(void *ptr_ellipse,
 {
 	t_vect		*vect;
 	t_ellipse	*ellipse;
-	t_vect		*rot;
 
 	ellipse = (t_ellipse*)ptr_ellipse;
+	(void)dir;
 	origin = ft_rotate_point(origin, ellipse->center, ellipse->rot);
 	if ((vect = ft_vectornew(origin->x - ellipse->center->x,
 		origin->y - ellipse->center->y,
 		origin->z - ellipse->center->z)) == NULL)
 		return (NULL);
-	rot = ft_rotate_vect(dir, ellipse->rot);
-	dir->x = rot->x;
-	dir->y = rot->y;
-	dir->z = rot->z;
-	return (vect);
+	return (ft_rotate_vect(vect, ellipse->inv));
 }

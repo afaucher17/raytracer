@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 15:02:51 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 16:05:17 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@
 # define VP_DIST 1.0
 # define SIZE_X 1280.0
 # define SIZE_Y 896.0
-# define ANTIALIASING 1.0
+# define ANTIALIASING 9.0
 # define NB_THREAD 4
 # define X_INDENT VP_WIDTH / SIZE_X
 # define Y_INDENT VP_HEIGHT / SIZE_Y
 
 extern t_objfun	g_objtab[OBJ_SIZE];
+extern t_scene	*g_scene;
 /*
 ** raytracer.c
 */
@@ -64,8 +65,8 @@ t_point			*ft_getdistpoint(t_point *origin, t_vect *dir, double dist);
 /*
 ** ft_raytracer.c
 */
-int				ft_getinter(t_scene *scene, t_point *origin,
-							t_vect *vect, int depth, t_obj *minobj);
+int				ft_getinter(t_point *origin, t_vect *vect,
+							int depth, t_obj *minobj);
 void			*ft_raytracer(void *ptr_env);
 
 /*
@@ -159,8 +160,7 @@ int				ft_lightcolor(t_obj *obj, t_light *light,
 /*
 ** ft_getlight.c
 */
-int				ft_getlight(t_obj *minobj, t_scene *scene,
-							t_line *line, int depth);
+int				ft_getlight(t_obj *minobj, t_line *line, int depth);
 
 /*
 ** ft_color.c
