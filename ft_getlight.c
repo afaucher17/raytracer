@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 16:07:00 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 11:58:43 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 13:12:58 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ int				ft_reflection(t_line *line, t_scene *scene,
 	double		cosa;
 	int			i;
 	int			color;
+	t_color		*color2;
 
 	i = 0;
 	color = 0;
+	color2 = obj->color;
 	vect.x = line->dir->x;
 	vect.y = line->dir->y;
 	vect.z = line->dir->z;
@@ -83,8 +85,11 @@ int				ft_reflection(t_line *line, t_scene *scene,
 	line->dir->y = vect.y + 2 * cosa * normal->y;
 	line->dir->z = vect.z + 2 * cosa * normal->z;
 	ft_normalize(line->dir);
-	if (depth > 0)
+	if (depth > 0 && obj->refl > 0.0)
 		color = ft_getinter(scene, line->origin, line->dir, depth - 1, obj);
+	((u_char*)&color)[0] *= obj->refl;
+	((u_char*)&color)[1] *= obj->refl;
+	((u_char*)&color)[2] *= obj->refl;
 	return (color);
 }
 

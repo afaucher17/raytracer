@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:18:31 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 12:13:24 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 13:11:16 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ t_vect			*ft_normesphere(void *ptr_sphere, t_point *origin, t_vect *dir)
 
 	(void)dir;
 	sphere = (t_sphere*)ptr_sphere;
-	if ((vect = ft_vectornew(origin->x - sphere->center->x,
-		origin->y - sphere->center->y,
-		origin->z - sphere->center->z)) == NULL)
+	if ((vect = ft_vectornew((origin->x - sphere->center->x) / sphere->radius,
+		(origin->y - sphere->center->y) / sphere->radius,
+		(origin->z - sphere->center->z) / sphere->radius)) == NULL)
 		return (NULL);
 	return (vect);
 }

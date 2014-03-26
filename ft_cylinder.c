@@ -6,12 +6,11 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/15 10:16:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 12:14:44 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 14:03:49 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
-#include <stdio.h>
 
 t_cylinder		*ft_cylindernew(t_point *center, t_vect *axis, double radius)
 {
@@ -23,7 +22,7 @@ t_cylinder		*ft_cylindernew(t_point *center, t_vect *axis, double radius)
 	new->axis = axis;
 	new->radius = radius;
 	ft_get_rotate_matrix(axis->x, axis->y, axis->z, new->rot);
-	ft_get_translate_matrix(center, new->rot);
+	ft_get_inv_matrix(new->rot, new->inv);
 	return (new);
 }
 
@@ -60,7 +59,7 @@ double			ft_intercylinder(void *ptr_cylinder,
 	if (det < 0)
 		return (-1);
 	return (ft_getmin((-b + sqrt(det)) / (2 * a),
-	(-b - sqrt(det)) / (2 * a)));
+				(-b - sqrt(det)) / (2 * a)));
 }
 
 t_vect			*ft_normecylinder(void *ptr_cylinder, t_point *origin,
@@ -68,17 +67,11 @@ t_vect			*ft_normecylinder(void *ptr_cylinder, t_point *origin,
 {
 	t_vect		*vect;
 	t_cylinder	*cylinder;
-	t_vect		*rot;
 
+	(void)dir;
 	cylinder = (t_cylinder*)ptr_cylinder;
-	dir->x = dir->x;
-	origin = ft_rotate_point(origin, cylinder->center, cylinder->rot);
 	if ((vect = ft_vectornew(origin->x - cylinder->center->x, 0,
 							origin->z - cylinder->center->z)) == NULL)
 		return (NULL);
-	rot = ft_rotate_vect(dir, cylinder->rot);
-	dir->x = rot->x;
-	dir->y = rot->y;
-	dir->z = rot->z;
-	return (vect);
+	return (ft_rotate_vect(vect, cylinder->inv));
 }

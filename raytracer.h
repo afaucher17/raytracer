@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 12:45:40 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 13:11:04 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			raytracer(int fd);
 /*
 ** ft_scene.c
 */
+t_camera		*ft_cameranew(t_point *origin, t_vect *dir, t_vect *up);
 t_scene			*ft_scenenew(int fd);
 
 /*
@@ -129,6 +130,7 @@ t_vect			*ft_getdirvector(t_point *vpupleft, t_camera *camera,
 /*
 ** ft_vector2.c
 */
+t_vect			*ft_project(t_vect *dir, t_vect *axis);
 double			ft_get_dot(t_vect *ldir, t_vect *norm, t_vect *dir);
 
 /*
@@ -176,7 +178,8 @@ int				darken_color(int color, int bpp, char ratio);
 /*
 ** ft_parser.c
 */
-void			ft_parser(int fd, t_light **llist, t_obj **olist);
+void			ft_parser(int fd, t_light **llist,
+							t_obj **olist, t_camera **camera);
 
 /*
 ** ft_parse_fun.c
@@ -200,6 +203,8 @@ void			ft_get_translate_matrix(t_point *center,
 									double rot[4][4]);
 t_point			*ft_rotate_point(t_point *origin, t_point *center,
 									double rot[4][4]);
+void			ft_get_inv_matrix(double rot[4][4], double inv[4][4]);
+t_point			*ft_rotate_point(t_point *origin, t_point *center, double rot[4][4]);
 t_vect			*ft_rotate_vect(t_vect *dir, double rot[4][4]);
 
 /*

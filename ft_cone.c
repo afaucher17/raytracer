@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 11:43:53 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 12:14:23 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 13:58:31 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_cone			*ft_conenew(t_point *center, t_vect *axis,
 	new->radius = radius;
 	new->angle = 1 / (tan(angle) * tan(angle));
 	ft_get_rotate_matrix(axis->x, axis->y, axis->z, new->rot);
-	ft_get_translate_matrix(center, new->rot);
+	ft_get_inv_matrix(new->rot, new->inv);
 	return (new);
 }
 
@@ -69,18 +69,12 @@ t_vect			*ft_normecone(void *ptr_cone, t_point *origin, t_vect *dir)
 {
 	t_vect		*vect;
 	t_cone		*cone;
-	t_vect		*rot;
 
 	cone = (t_cone*)ptr_cone;
-	dir->x = dir->x;
-	origin = ft_rotate_point(origin, cone->center, cone->rot);
-	if ((vect = ft_vectornew(origin->x,
-					cos(cone->angle) / (origin->y),
-					origin->z)) == NULL)
+	(void)dir;
+	if ((vect = ft_vectornew(origin->x - cone->center->x,
+					cos(cone->angle) / (origin->y - cone->center->y),
+					origin->z - cone->center->z)) == NULL)
 		return (NULL);
-	rot = ft_rotate_vect(dir, cone->rot);
-	dir->x = rot->x;
-	dir->y = rot->y;
-	dir->z = rot->z;
-	return (vect);
+	return (ft_rotate_vect(vect, cone->inv));
 }

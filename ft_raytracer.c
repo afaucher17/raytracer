@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 12:22:09 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2014/03/26 13:11:33 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void			ft_stackcolor(t_env *env, t_vect *dirv, double rgb[3])
 {
 	int				tmp;
 
-	tmp = ft_getinter(env->scene, env->scene->camera->origin, dirv, 3, NULL);
+	tmp = ft_getinter(env->scene, env->scene->camera->origin, dirv, 5, NULL);
 	rgb[0] += ((u_char*)&tmp)[0] / ANTIALIASING;
 	rgb[1] += ((u_char*)&tmp)[1] / ANTIALIASING;
 	rgb[2] += ((u_char*)&tmp)[2] / ANTIALIASING;
