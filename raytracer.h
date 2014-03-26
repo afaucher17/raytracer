@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 13:11:04 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/26 15:02:51 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void			raytracer(int fd);
 */
 t_camera		*ft_cameranew(t_point *origin, t_vect *dir, t_vect *up);
 t_scene			*ft_scenenew(int fd);
+
+/*
+** ft_getdistpoint.c
+*/
+t_point			*ft_getdistpoint(t_point *origin, t_vect *dir, double dist);
 
 /*
 ** ft_raytracer.c
