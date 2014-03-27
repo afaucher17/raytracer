@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 16:05:17 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:25:50 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define VP_DIST 1.0
 # define SIZE_X 1280.0
 # define SIZE_Y 896.0
-# define ANTIALIASING 9.0
+# define ANTIALIASING 1.0
 # define NB_THREAD 4
 # define X_INDENT VP_WIDTH / SIZE_X
 # define Y_INDENT VP_HEIGHT / SIZE_Y
@@ -156,6 +156,12 @@ void			ft_lightpushfront(t_light **light, t_point *point,
 									enum e_light type, t_color *color);
 int				ft_lightcolor(t_obj *obj, t_light *light,
 								t_line *line, t_vect *dir);
+
+/*
+** ft_fresnel.c
+*/
+int				ft_fresnel(t_color *final_color, t_line *line,
+							t_obj *obj, int depth);
 
 /*
 ** ft_getlight.c
