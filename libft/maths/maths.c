@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/04 13:23:28 by afaucher          #+#    #+#             */
-/*   Updated: 2014/01/07 15:20:46 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 23:02:45 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ double		ft_pow(double nb, int p)
 	return (nb * ft_pow(nb, p - 1));
 }
 
-long	ft_fact(long nb)
+long		ft_fact(long nb)
 {
 	if (nb == 0)
 		return (1);

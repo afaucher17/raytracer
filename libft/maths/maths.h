@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/04 13:28:15 by afaucher          #+#    #+#             */
-/*   Updated: 2014/01/16 13:13:45 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 23:03:03 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,4 @@ double	ft_getrad(double rad);
 double	ft_cos(double rad);
 double	ft_sin(double rad);
 double	ft_tan(double rad);
-#endif /* MATHS_H */
+#endif
