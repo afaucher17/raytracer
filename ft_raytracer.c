@@ -6,13 +6,13 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 13:29:42 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:47:26 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include			"raytracer.h"
 
-int					ft_getintervalue(t_obj *list, t_line *line,
+double				ft_getintervalue(t_obj *list, t_line *line,
 										t_obj **minobj, double min)
 {
 	int				i;
