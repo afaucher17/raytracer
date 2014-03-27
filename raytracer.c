@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:43:30 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 15:59:20 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 23:06:22 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		pthread_init(pthread_t *thread, t_mlx_img *img, int quarter)
 		return (0);
 	env->xstart = quarter;
 	env->img = img;
-	printf("thread created %d\n", quarter);
+	ft_putendl("thread created");
 	if (pthread_create(thread, NULL, ft_raytracer, env))
 	{
 		perror("raytracer: ");

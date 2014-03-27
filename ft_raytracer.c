@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/11 19:41:11 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 21:03:24 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 23:06:15 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,6 @@ void				*ft_raytracer(void *ptr_env)
 		}
 		y++;
 	}
-	printf("thread end\n");
+	ft_putendl("thread end");
 	return (NULL);
 }
