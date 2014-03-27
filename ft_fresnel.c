@@ -6,13 +6,23 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 12:04:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 13:12:13 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 14:00:46 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
 
-static int		ft_refraction(t_line *line, t_obj *obj, int depth)
+static double	ft_sint2(t_vect *normal, t_vec *dir, double refr)
+{
+	double		cosi;
+	double		sint2;
+
+	cosi = -ft_getangle(dir, normal);
+	sint2 = refr * refr * (1.0 - cosi * cosi);
+	return (sint2);
+}
+
+static int		ft_refraction(t_line *line, t_obj *obj)
 {
 	double		n;
 	double		cosi;
@@ -22,15 +32,11 @@ static int		ft_refraction(t_line *line, t_obj *obj, int depth)
 	int			i;
 	int			color;
 
-	depth = 0;
 	color = 0;
 	i = -1;
 	while (++i < OBJ_SIZE)
 		if (g_objtab[i].type == obj->type)
 			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
-	n = 1 / (1 - obj->refl);
-	cosi = -ft_getangle(line->dir, normal);
-	sint2 = n * n * (1.0 - cosi * cosi);
 	if (sint2 > 1.0)
 		return (0);
 	cost = sqrt(1.0 - sint2);
