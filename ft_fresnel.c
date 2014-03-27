@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 12:04:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 13:12:13 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 13:59:38 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		ft_refraction(t_line *line, t_obj *obj, int depth)
 	while (++i < OBJ_SIZE)
 		if (g_objtab[i].type == obj->type)
 			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
-	n = 1 / (1 - obj->refl);
+	n = 1 / obj->refr;
 	cosi = -ft_getangle(line->dir, normal);
 	sint2 = n * n * (1.0 - cosi * cosi);
 	if (sint2 > 1.0)
@@ -38,7 +38,7 @@ static int		ft_refraction(t_line *line, t_obj *obj, int depth)
 	line->dir->y = n * line->dir->y + (n * cosi - cost) * normal->y;
 	line->dir->z = n * line->dir->z + (n * cosi - cost) * normal->z;
 	ft_normalize(line->dir);
-	if (obj->refl > 0.0)
+	if (obj->refr > 0.0)
 		color = ft_getinter(line->origin, line->dir, 0, obj);
 	return (color);
 }
