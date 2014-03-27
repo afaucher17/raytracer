@@ -6,14 +6,14 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 12:04:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 17:02:36 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:08:23 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
 
 static t_vect	*ft_refr_vect(t_vect *normal, t_line *line, double refr)
-{	
+{
 	double		cosi;
 	double		sint2;
 	double		cost;
@@ -33,7 +33,7 @@ static t_vect	*ft_refr_vect(t_vect *normal, t_line *line, double refr)
 	return (vect);
 }
 
-int		ft_refraction(t_line *line, t_obj *obj, int depth)
+static int		ft_refraction(t_line *line, t_obj *obj, int depth)
 {
 	t_vect		*normal;
 	t_vect		*vect;
@@ -54,7 +54,6 @@ int		ft_refraction(t_line *line, t_obj *obj, int depth)
 	((u_char*)&color)[2] *= (obj->color->b / 255.0) * (1 - obj->opacity);
 	return (color);
 }
-
 
 static int		ft_reflection(t_line *line, t_obj *obj, int depth)
 {
