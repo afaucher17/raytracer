@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 12:04:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 17:08:23 by frale-co         ###   ########.fr       */
+/*   Updated: 2014/03/27 21:20:56 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static int		ft_refraction(t_line *line, t_obj *obj, int depth)
 		return (0x000000);
 	if (obj->refr > 0.0 && depth > 0)
 		color = ft_getinter(line->origin, vect, depth - 1, obj);
-	((u_char*)&color)[0] *= (obj->color->r / 255.0) * (1 - obj->opacity);
-	((u_char*)&color)[1] *= (obj->color->g / 255.0) * (1 - obj->opacity);
-	((u_char*)&color)[2] *= (obj->color->b / 255.0) * (1 - obj->opacity);
+	((u_char*)&color)[0] *= (1 - obj->opacity);
+	((u_char*)&color)[1] *= (1 - obj->opacity);
+	((u_char*)&color)[2] *= (1 - obj->opacity);
 	return (color);
 }
 
