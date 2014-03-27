@@ -6,14 +6,14 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 12:04:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 16:11:15 by frale-co         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:02:36 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raytracer.h"
 
 static t_vect	*ft_refr_vect(t_vect *normal, t_line *line, double refr)
-{
+{	
 	double		cosi;
 	double		sint2;
 	double		cost;
@@ -33,7 +33,7 @@ static t_vect	*ft_refr_vect(t_vect *normal, t_line *line, double refr)
 	return (vect);
 }
 
-static int		ft_refraction(t_line *line, t_obj *obj)
+int		ft_refraction(t_line *line, t_obj *obj, int depth)
 {
 	t_vect		*normal;
 	t_vect		*vect;
@@ -46,13 +46,12 @@ static int		ft_refraction(t_line *line, t_obj *obj)
 		if (g_objtab[i].type == obj->type)
 			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
 	if ((vect = ft_refr_vect(normal, line, obj->refr)) == NULL)
-		return (0);
-	if (obj->refr > 0.0)
-		color = ft_getinter(line->origin, vect, 0, obj);
-	((u_char*)&color)[0] *= (obj->color->r / 255.0) * (1 - obj->refl);
-	((u_char*)&color)[1] *= (obj->color->g / 255.0) * (1 - obj->refl);
-	((u_char*)&color)[2] *= (obj->color->b / 255.0) * (1 - obj->refl);
-	free(vect);
+		return (0x000000);
+	if (obj->refr > 0.0 && depth > 0)
+		color = ft_getinter(line->origin, vect, depth - 1, obj);
+	((u_char*)&color)[0] *= (obj->color->r / 255.0) * (1 - obj->opacity);
+	((u_char*)&color)[1] *= (obj->color->g / 255.0) * (1 - obj->opacity);
+	((u_char*)&color)[2] *= (obj->color->b / 255.0) * (1 - obj->opacity);
 	return (color);
 }
 
@@ -92,7 +91,7 @@ int				ft_fresnel(t_color *final_color, t_line *line,
 	double		inv;
 
 	inv = obj->spec;
-	color2 = ft_refraction(line, obj);
+	color2 = ft_refraction(line, obj, depth);
 	color1 = ft_reflection(line, obj, depth);
 	final_color->r += inv * (((u_char*)&color1)[0] + ((u_char*)&color2)[0]);
 	final_color->g += inv * (((u_char*)&color1)[1] + ((u_char*)&color2)[1]);

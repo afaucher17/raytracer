@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 19:12:49 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 13:58:12 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:13:50 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct		s_obj
 	double			spec;
 	double			refl;
 	double			refr;
+	double			opacity;
 	struct s_obj	*next;
 }					t_obj;
 

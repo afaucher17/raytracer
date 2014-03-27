@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 18:20:29 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 13:58:55 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:32:11 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void			ft_fillplane(t_list **list, t_obj **olist)
 	obj->spec = ft_get_value(list) / 100.0;
 	obj->refl = ft_get_value(list) / 100.0;
 	obj->refr = ft_get_value(list) / 100.0;
+	obj->opacity = ft_get_value(list) / 100.0;
 }
 
 void			ft_fillsphere(t_list **list, t_obj **olist)
@@ -39,6 +40,7 @@ void			ft_fillsphere(t_list **list, t_obj **olist)
 	obj->spec = ft_get_value(list) / 100.0;
 	obj->refl = ft_get_value(list) / 100.0;
 	obj->refr = ft_get_value(list) / 100.0;
+	obj->opacity = ft_get_value(list) / 100.0;
 }
 
 void			ft_fillcylinder(t_list **list, t_obj **olist)
@@ -53,6 +55,7 @@ void			ft_fillcylinder(t_list **list, t_obj **olist)
 	obj->spec = ft_get_value(list) / 100.0;
 	obj->refl = ft_get_value(list) / 100.0;
 	obj->refr = ft_get_value(list) / 100.0;
+	obj->opacity = ft_get_value(list) / 100.0;
 }
 
 void			ft_fillcone(t_list **list, t_obj **olist)
@@ -68,4 +71,5 @@ void			ft_fillcone(t_list **list, t_obj **olist)
 	obj->spec = ft_get_value(list) / 100.0;
 	obj->refl = ft_get_value(list) / 100.0;
 	obj->refr = ft_get_value(list) / 100.0;
+	obj->opacity = ft_get_value(list) / 100.0;
 }

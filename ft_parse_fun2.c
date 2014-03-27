@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 18:20:45 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 13:59:42 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:40:52 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			ft_fillellipse(t_list **list, t_obj **olist)
 	obj->spec = ft_get_value(list) / 100.0;
 	obj->refl = ft_get_value(list) / 100.0;
 	obj->refr = ft_get_value(list) / 100.0;
+	obj->opacity = ft_get_value(list) / 100.0;
 }
 
 t_point			*ft_get_point(t_list **list)
