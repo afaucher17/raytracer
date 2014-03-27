@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/19 13:37:38 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 14:24:39 by frale-co         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:14:45 by jlinden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ t_vect			*ft_normecone(void *cone, t_point *origin, t_vect *dir);
 /*
 ** ft_ellipse.c
 */
-t_ellipse		*ft_ellipsenew(t_point *center, t_vect *axis,
-							t_vect *ray, double radius);
+t_ellipse		*ft_ellipsenew(t_point *center, t_vect *axis
+								, t_vect *ray, double radius);
 void			ft_clearellipse(void **ptr_ellipse);
 double			ft_interellipse(void *ptr_ellipse, t_point *origin,
 								t_vect *dir);
@@ -215,7 +215,8 @@ void			ft_get_translate_matrix(t_point *center,
 t_point			*ft_rotate_point(t_point *origin, t_point *center,
 									double rot[4][4]);
 void			ft_get_inv_matrix(double rot[4][4], double inv[4][4]);
-t_point			*ft_rotate_point(t_point *origin, t_point *center, double rot[4][4]);
+t_point			*ft_rotate_point(t_point *origin, t_point *center
+									, double rot[4][4]);
 t_vect			*ft_rotate_vect(t_vect *dir, double rot[4][4]);
 
 /*
