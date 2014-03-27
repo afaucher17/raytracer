@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 19:12:49 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/26 15:25:43 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 13:58:12 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct		s_obj
 	t_color			*color;
 	double			spec;
 	double			refl;
+	double			refr;
 	struct s_obj	*next;
 }					t_obj;
 

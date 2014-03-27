@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 12:04:51 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 14:00:46 by frale-co         ###   ########.fr       */
+/*   Updated: 2014/03/27 14:02:32 by frale-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int		ft_refraction(t_line *line, t_obj *obj)
 	line->dir->y = n * line->dir->y + (n * cosi - cost) * normal->y;
 	line->dir->z = n * line->dir->z + (n * cosi - cost) * normal->z;
 	ft_normalize(line->dir);
-	if (obj->refl > 0.0)
+	if (obj->refr > 0.0)
 		color = ft_getinter(line->origin, line->dir, 0, obj);
 	return (color);
 }
