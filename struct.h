@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 19:12:49 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 16:13:50 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:02:19 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct		s_line
 {
 	t_vect			*dir;
 	t_point			*origin;
+	double			coeff;
 }					t_line;
 
 typedef struct		s_camera

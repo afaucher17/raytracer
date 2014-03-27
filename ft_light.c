@@ -6,7 +6,7 @@
 /*   By: afaucher <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/12 21:31:28 by afaucher          #+#    #+#             */
-/*   Updated: 2014/03/27 10:51:30 by afaucher         ###   ########.fr       */
+/*   Updated: 2014/03/27 22:05:53 by afaucher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,21 @@ int			ft_lightcolor(t_obj	*obj, t_light *light,
 	double	dot;
 	t_vect	*normal;
 	int		i;
+	int		color;
 
-	i = 0;
-	while (i < OBJ_SIZE)
-	{
+	i = -1;
+	if (line->coeff <= 0)
+		return (0);
+	while (++i < OBJ_SIZE)
 		if (g_objtab[i].type == obj->type)
 			normal = g_objtab[i].f_getnorm(obj->obj, line->origin, line->dir);
-		i++;
-	}
 	cosa = ft_getangle(line->dir, normal);
 	dot = ft_get_dot(line->dir, normal, dir);
 	if (cosa <= 0)
 		return (0x000000);
-	return (ft_getcolor(obj, light->color, cosa, dot));
+	color = ft_getcolor(obj, light->color, cosa, dot);
+	((u_char*)&color)[0] *= line->coeff;
+	((u_char*)&color)[1] *= line->coeff;
+	((u_char*)&color)[2] *= line->coeff;
+	return (color);
 }
